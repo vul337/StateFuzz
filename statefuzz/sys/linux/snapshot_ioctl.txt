@@ -1,0 +1,40 @@
+ioctl$dev_snapshot_51_0(fd fd_snapshot, cmd const[51], arg ptr64[in, int64])
+ioctl$dev_snapshot_51_1(fd fd_snapshot, cmd const[51], arg intptr)
+ioctl$dev_snapshot_13057_2(fd fd_snapshot, cmd const[13057], arg ptr64[in, int64])
+ioctl$dev_snapshot_13057_3(fd fd_snapshot, cmd const[13057], arg intptr)
+ioctl$dev_snapshot_13058_4(fd fd_snapshot, cmd const[13058], arg ptr64[in, int64])
+ioctl$dev_snapshot_13058_5(fd fd_snapshot, cmd const[13058], arg intptr)
+ioctl$dev_snapshot_1074017041_6(fd fd_snapshot, cmd const[1074017041], arg ptr64[in, int64])
+ioctl$dev_snapshot_1074017041_7(fd fd_snapshot, cmd const[1074017041], arg intptr)
+ioctl$dev_snapshot_13060_8(fd fd_snapshot, cmd const[13060], arg ptr64[in, int64])
+ioctl$dev_snapshot_13060_9(fd fd_snapshot, cmd const[13060], arg intptr)
+ioctl$dev_snapshot_13061_10(fd fd_snapshot, cmd const[13061], arg ptr64[in, int64])
+ioctl$dev_snapshot_13061_11(fd fd_snapshot, cmd const[13061], arg intptr)
+ioctl$dev_snapshot_13074_12(fd fd_snapshot, cmd const[13074], arg ptr64[in, int64])
+ioctl$dev_snapshot_13074_13(fd fd_snapshot, cmd const[13074], arg intptr)
+ioctl$dev_snapshot_2148021006_14(fd fd_snapshot, cmd const[2148021006], arg ptr64[in, int64])
+ioctl$dev_snapshot_2148021006_15(fd fd_snapshot, cmd const[2148021006], arg intptr)
+ioctl$dev_snapshot_2148021011_16(fd fd_snapshot, cmd const[2148021011], arg ptr64[in, int64])
+ioctl$dev_snapshot_2148021011_17(fd fd_snapshot, cmd const[2148021011], arg intptr)
+ioctl$dev_snapshot_2148021012_18(fd fd_snapshot, cmd const[2148021012], arg ptr64[in, int64])
+ioctl$dev_snapshot_2148021012_19(fd fd_snapshot, cmd const[2148021012], arg intptr)
+ioctl$dev_snapshot_13065_20(fd fd_snapshot, cmd const[13065], arg ptr64[in, int64])
+ioctl$dev_snapshot_13065_21(fd fd_snapshot, cmd const[13065], arg intptr)
+ioctl$dev_snapshot_13067_22(fd fd_snapshot, cmd const[13067], arg ptr64[in, int64])
+ioctl$dev_snapshot_13067_23(fd fd_snapshot, cmd const[13067], arg intptr)
+ioctl$dev_snapshot_13071_24(fd fd_snapshot, cmd const[13071], arg ptr64[in, int64])
+ioctl$dev_snapshot_13071_25(fd fd_snapshot, cmd const[13071], arg intptr)
+ioctl$dev_snapshot_13072_26(fd fd_snapshot, cmd const[13072], arg ptr64[in, int64])
+ioctl$dev_snapshot_13072_27(fd fd_snapshot, cmd const[13072], arg intptr)
+ioctl$dev_snapshot_1074541325_28(fd fd_snapshot, cmd const[1074541325], arg ptr64[in, resume_swap_area])
+ioctl$dev_snapshot_1074541325_29(fd fd_snapshot, cmd const[1074541325], arg ptr64[in, compat_resume_swap_area])
+
+compat_resume_swap_area {
+	element_0	int64
+	element_1	int32
+} [packed]
+
+resume_swap_area {
+	element_0	int64
+	element_1	int32
+} [packed]

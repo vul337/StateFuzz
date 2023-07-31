@@ -1,0 +1,62 @@
+resource fd_bsg[fd]
+syz_open_dev$dev_bsg(dev ptr64[in, string["/dev/bsg"]], id intptr, flags flags[open_flags]) fd_bsg
+close$dev_bsg(fd fd_bsg)
+ioctl$dev_bsg_8816_0(fd fd_bsg, cmd const[8816], arg ptr64[in, int64])
+ioctl$dev_bsg_8816_1(fd fd_bsg, cmd const[8816], arg intptr)
+ioctl$dev_bsg_8817_2(fd fd_bsg, cmd const[8817], arg ptr64[in, int64])
+ioctl$dev_bsg_8817_3(fd fd_bsg, cmd const[8817], arg intptr)
+ioctl$dev_bsg_8834_4(fd fd_bsg, cmd const[8834], arg ptr64[in, int64])
+ioctl$dev_bsg_8834_5(fd fd_bsg, cmd const[8834], arg intptr)
+ioctl$dev_bsg_21378_6(fd fd_bsg, cmd const[21378], arg ptr64[in, int64])
+ioctl$dev_bsg_21378_7(fd fd_bsg, cmd const[21378], arg intptr)
+ioctl$dev_bsg_21382_8(fd fd_bsg, cmd const[21382], arg ptr64[in, int64])
+ioctl$dev_bsg_21382_9(fd fd_bsg, cmd const[21382], arg intptr)
+ioctl$dev_bsg_8705_10(fd fd_bsg, cmd const[8705], arg ptr64[in, int64])
+ioctl$dev_bsg_8705_11(fd fd_bsg, cmd const[8705], arg intptr)
+ioctl$dev_bsg_8706_12(fd fd_bsg, cmd const[8706], arg ptr64[in, int64])
+ioctl$dev_bsg_8706_13(fd fd_bsg, cmd const[8706], arg intptr)
+ioctl$dev_bsg_8818_14(fd fd_bsg, cmd const[8818], arg ptr64[in, int64])
+ioctl$dev_bsg_8818_15(fd fd_bsg, cmd const[8818], arg intptr)
+ioctl$dev_bsg_8821_16(fd fd_bsg, cmd const[8821], arg ptr64[in, int64])
+ioctl$dev_bsg_8821_17(fd fd_bsg, cmd const[8821], arg intptr)
+ioctl$dev_bsg_8707_18(fd fd_bsg, cmd const[8707], arg ptr64[in, int64])
+ioctl$dev_bsg_8707_19(fd fd_bsg, cmd const[8707], arg intptr)
+ioctl$dev_bsg_1_20(fd fd_bsg, cmd const[1], arg ptr64[in, int64])
+ioctl$dev_bsg_1_21(fd fd_bsg, cmd const[1], arg intptr)
+ioctl$dev_bsg_8837_22(fd fd_bsg, cmd const[8837], arg ptr64[in, sg_io_v4])
+
+sg_io_v4 {
+	element_0	int32
+	element_1	int32
+	element_2	int32
+	element_3	int32
+	element_4	int64
+	element_5	int64
+	element_6	int32
+	element_7	int32
+	element_8	int32
+	element_9	int32
+	element_10	int64
+	element_11	int32
+	element_12	int32
+	element_13	int32
+	element_14	int32
+	element_15	int64
+	element_16	int64
+	element_17	int32
+	element_18	int32
+	element_19	int64
+	element_20	int32
+	element_21	int32
+	element_22	int32
+	element_23	int32
+	element_24	int32
+	element_25	int32
+	element_26	int32
+	element_27	int32
+	element_28	int32
+	element_29	int32
+	element_30	int64
+	element_31	int32
+	element_32	int32
+}

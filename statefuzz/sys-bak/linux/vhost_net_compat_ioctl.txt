@@ -1,0 +1,18 @@
+resource fd_vhost_net[fd]
+syz_open_dev$dev_vhost_net(dev ptr64[in, string["/dev/vhost-net"]], id intptr, flags flags[open_flags]) fd_vhost_net
+ioctl$dev_vhost_net_1074310960_0(fd fd_vhost_net, cmd const[1074310960], arg ptr64[in, vhost_vring_file])
+ioctl$dev_vhost_net_2148052736_1(fd fd_vhost_net, cmd const[2148052736], arg ptr64[in, int64])
+ioctl$dev_vhost_net_2148052736_2(fd fd_vhost_net, cmd const[2148052736], arg intptr)
+ioctl$dev_vhost_net_1074310912_3(fd fd_vhost_net, cmd const[1074310912], arg ptr64[in, int64])
+ioctl$dev_vhost_net_2148052774_4(fd fd_vhost_net, cmd const[2148052774], arg ptr64[in, int64])
+ioctl$dev_vhost_net_2148052774_5(fd fd_vhost_net, cmd const[2148052774], arg intptr)
+ioctl$dev_vhost_net_1074310949_6(fd fd_vhost_net, cmd const[1074310949], arg ptr64[in, int64])
+ioctl$dev_vhost_net_44802_7(fd fd_vhost_net, cmd const[44802], arg ptr64[in, int64])
+ioctl$dev_vhost_net_44802_8(fd fd_vhost_net, cmd const[44802], arg intptr)
+ioctl$dev_vhost_net_44801_9(fd fd_vhost_net, cmd const[44801], arg ptr64[in, int64])
+ioctl$dev_vhost_net_44801_10(fd fd_vhost_net, cmd const[44801], arg intptr)
+vhost_vring_file {
+	element_0	int32
+	element_1	int32
+}
+

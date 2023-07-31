@@ -1,0 +1,16 @@
+ioctl$dev_usbmon_37377_0(fd fd_usbmon, cmd const[37377], arg ptr64[in, int64])
+ioctl$dev_usbmon_37377_1(fd fd_usbmon, cmd const[37377], arg intptr)
+ioctl$dev_usbmon_37381_2(fd fd_usbmon, cmd const[37381], arg ptr64[in, int64])
+ioctl$dev_usbmon_37381_3(fd fd_usbmon, cmd const[37381], arg intptr)
+ioctl$dev_usbmon_37380_4(fd fd_usbmon, cmd const[37380], arg ptr64[in, int64])
+ioctl$dev_usbmon_37380_5(fd fd_usbmon, cmd const[37380], arg intptr)
+ioctl$dev_usbmon_37384_6(fd fd_usbmon, cmd const[37384], arg ptr64[in, int64])
+ioctl$dev_usbmon_37384_7(fd fd_usbmon, cmd const[37384], arg intptr)
+ioctl$dev_usbmon_1075352070_8(fd fd_usbmon, cmd const[1075352070], arg ptr64[in, mon_bin_get])
+ioctl$dev_usbmon_0_9(fd fd_usbmon, cmd const[0], arg ptr64[in, mon_bin_get])
+ioctl$dev_usbmon_1075352074_10(fd fd_usbmon, cmd const[1075352074], arg ptr64[in, mon_bin_get])
+ioctl$dev_usbmon_3222311431_11(fd fd_usbmon, cmd const[3222311431], arg ptr64[in, mon_bin_mfetch])
+ioctl$dev_usbmon_2148045315_12(fd fd_usbmon, cmd const[2148045315], arg ptr64[in, int64])
+ioctl$dev_usbmon_2148045315_13(fd fd_usbmon, cmd const[2148045315], arg intptr)
+
+

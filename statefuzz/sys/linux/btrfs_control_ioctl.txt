@@ -1,0 +1,8 @@
+ioctl$dev_btrfs_control_1342215172_0(fd fd_btrfs_control, cmd const[1342215172], arg ptr64[in, int64])
+ioctl$dev_btrfs_control_1342215172_1(fd fd_btrfs_control, cmd const[1342215172], arg intptr)
+ioctl$dev_btrfs_control_1342215173_2(fd fd_btrfs_control, cmd const[1342215173], arg ptr64[in, int64])
+ioctl$dev_btrfs_control_1342215173_3(fd fd_btrfs_control, cmd const[1342215173], arg intptr)
+ioctl$dev_btrfs_control_2415957031_4(fd fd_btrfs_control, cmd const[2415957031], arg ptr64[in, int64])
+ioctl$dev_btrfs_control_2415957031_5(fd fd_btrfs_control, cmd const[2415957031], arg intptr)
+ioctl$dev_btrfs_control_2152240185_6(fd fd_btrfs_control, cmd const[2152240185], arg ptr64[in, int64])
+ioctl$dev_btrfs_control_2152240185_7(fd fd_btrfs_control, cmd const[2152240185], arg intptr)

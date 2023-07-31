@@ -1,0 +1,1 @@
+write$dev_tun(fd fd_tun, buf buffer[in], count len[buf])

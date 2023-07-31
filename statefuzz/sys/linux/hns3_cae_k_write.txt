@@ -1,0 +1,1 @@
+write$dev_nic_dev(fd fd_nic_dev, buf buffer[in], count len[buf])

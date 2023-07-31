@@ -1,0 +1,2 @@
+resource fd_scsi_scsi[fd]
+syz_open_dev$dev_scsi_scsi(dev ptr64[in, string["/dev/scsi/scsi"]], id intptr, flags flags[open_flags]) fd_scsi_scsi

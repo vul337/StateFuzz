@@ -1,0 +1,4 @@
+resource fd_ashmem[fd]
+syz_open_dev$dev_ashmem(dev ptr64[in, string["/dev/ashmem"]], id intptr, flags flags[open_flags]) fd_ashmem
+close$dev_ashmem(fd fd_ashmem)
+read$dev_ashmem(fd fd_ashmem, buf buffer[out], count len[buf])

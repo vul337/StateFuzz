@@ -1,0 +1,3 @@
+syz_open_dev$dev_vfio(dev ptr64[in, string["/dev/vfio"]], id intptr, flags flags[open_flags]) fd_vfio
+close$dev_vfio(fd fd_vfio)
+read$dev_vfio(fd fd_vfio, buf buffer[out], count len[buf])

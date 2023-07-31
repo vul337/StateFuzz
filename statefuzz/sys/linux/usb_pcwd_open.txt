@@ -1,0 +1,3 @@
+resource fd_watchdog[fd]
+syz_open_dev$dev_watchdog(dev ptr64[in, string["/dev/watchdog"]], id intptr, flags flags[open_flags]) fd_watchdog
+close$dev_watchdog(fd fd_watchdog)

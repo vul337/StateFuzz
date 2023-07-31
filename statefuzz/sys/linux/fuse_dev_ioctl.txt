@@ -1,0 +1,2 @@
+ioctl$dev_fuse_2147804416_0(fd fd_fuse, cmd const[2147804416], arg ptr64[in, int64])
+ioctl$dev_fuse_2147804416_1(fd fd_fuse, cmd const[2147804416], arg intptr)

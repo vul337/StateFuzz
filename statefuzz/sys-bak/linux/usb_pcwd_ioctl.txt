@@ -1,0 +1,2 @@
+ioctl$dev_watchdog_2147768067_0(fd fd_watchdog, cmd const[2147768067], arg ptr64[in, int64])
+ioctl$dev_watchdog_2147768067_1(fd fd_watchdog, cmd const[2147768067], arg intptr)

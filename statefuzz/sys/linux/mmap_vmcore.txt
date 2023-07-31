@@ -1,0 +1,3 @@
+resource fd_vmcore[fd]
+syz_open_dev$dev_vmcore(dev ptr64[in, string["/dev/vmcore"]], id intptr, flags flags[open_flags]) fd_vmcore
+close$dev_vmcore(fd fd_vmcore)

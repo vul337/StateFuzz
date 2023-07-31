@@ -1,0 +1,4 @@
+resource fd_loglevel[fd]
+syz_open_dev$dev_loglevel(dev ptr64[in, string["/dev/loglevel"]], id intptr, flags flags[open_flags]) fd_loglevel
+close$dev_loglevel(fd fd_loglevel)
+write$dev_loglevel(fd fd_loglevel, buf buffer[in], count len[buf])

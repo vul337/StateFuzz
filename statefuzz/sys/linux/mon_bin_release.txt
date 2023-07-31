@@ -1,0 +1,2 @@
+syz_open_dev$dev_usbmon(dev ptr64[in, string["/dev/usbmon"]], id intptr, flags flags[open_flags]) fd_usbmon
+close$dev_usbmon(fd fd_usbmon)

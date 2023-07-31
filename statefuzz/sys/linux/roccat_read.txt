@@ -1,0 +1,1 @@
+read$dev_roccat(fd fd_roccat, buf buffer[out], count len[buf])

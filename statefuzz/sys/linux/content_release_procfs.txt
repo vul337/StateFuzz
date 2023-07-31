@@ -1,0 +1,3 @@
+resource fd_content[fd]
+syz_open_dev$dev_content(dev ptr64[in, string["/dev/content"]], id intptr, flags flags[open_flags]) fd_content
+close$dev_content(fd fd_content)

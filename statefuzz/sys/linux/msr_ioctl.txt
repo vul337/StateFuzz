@@ -1,0 +1,2 @@
+ioctl$dev_cpu_msr_3223348128_0(fd fd_cpu_msr, cmd const[3223348128], arg ptr64[in, int32])
+ioctl$dev_cpu_msr_3223348129_1(fd fd_cpu_msr, cmd const[3223348129], arg ptr64[in, int32])

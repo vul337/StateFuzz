@@ -1,0 +1,4 @@
+resource fd_snd_seq[fd]
+syz_open_dev$dev_snd_seq(dev ptr64[in, string["/dev/snd/seq"]], id intptr, flags flags[open_flags]) fd_snd_seq
+close$dev_snd_seq(fd fd_snd_seq)
+write$dev_snd_seq(fd fd_snd_seq, buf buffer[in], count len[buf])

@@ -1,0 +1,3 @@
+resource fd_snapshot[fd]
+syz_open_dev$dev_snapshot(dev ptr64[in, string["/dev/snapshot"]], id intptr, flags flags[open_flags]) fd_snapshot
+write$dev_snapshot (fd fd_snapshot, buf buffer[in], count len[buf])

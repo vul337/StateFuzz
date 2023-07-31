@@ -1,0 +1,1 @@
+write$dev_vga_arbiter(fd fd_vga_arbiter, buf buffer[in], count len[buf])

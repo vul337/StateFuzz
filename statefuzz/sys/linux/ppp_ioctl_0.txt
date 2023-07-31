@@ -1,0 +1,54 @@
+syz_open_dev$dev_ppp(dev ptr64[in, string["/dev/ppp"]], id intptr, flags flags[open_flags]) fd_ppp
+close$dev_ppp(fd fd_ppp)
+ioctl$dev_ppp_3221517374_0(fd fd_ppp, cmd const[3221517374], arg ptr64[in, int64])
+ioctl$dev_ppp_3221517374_1(fd fd_ppp, cmd const[3221517374], arg intptr)
+ioctl$dev_ppp_1074033725_2(fd fd_ppp, cmd const[1074033725], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033725_3(fd fd_ppp, cmd const[1074033725], arg intptr)
+ioctl$dev_ppp_1074033720_4(fd fd_ppp, cmd const[1074033720], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033720_5(fd fd_ppp, cmd const[1074033720], arg intptr)
+ioctl$dev_ppp_1074033724_6(fd fd_ppp, cmd const[1074033724], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033724_7(fd fd_ppp, cmd const[1074033724], arg intptr)
+ioctl$dev_ppp_1074033722_8(fd fd_ppp, cmd const[1074033722], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033722_9(fd fd_ppp, cmd const[1074033722], arg intptr)
+ioctl$dev_ppp_29753_10(fd fd_ppp, cmd const[29753], arg ptr64[in, int64])
+ioctl$dev_ppp_29753_11(fd fd_ppp, cmd const[29753], arg intptr)
+ioctl$dev_ppp_1074033717_12(fd fd_ppp, cmd const[1074033717], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033717_13(fd fd_ppp, cmd const[1074033717], arg intptr)
+ioctl$dev_ppp_29748_14(fd fd_ppp, cmd const[29748], arg ptr64[in, int64])
+ioctl$dev_ppp_29748_15(fd fd_ppp, cmd const[29748], arg intptr)
+ioctl$dev_ppp_1074033746_16(fd fd_ppp, cmd const[1074033746], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033746_17(fd fd_ppp, cmd const[1074033746], arg intptr)
+ioctl$dev_ppp_1074033753_18(fd fd_ppp, cmd const[1074033753], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033753_19(fd fd_ppp, cmd const[1074033753], arg intptr)
+ioctl$dev_ppp_2147775578_20(fd fd_ppp, cmd const[2147775578], arg ptr64[in, int64])
+ioctl$dev_ppp_2147775578_21(fd fd_ppp, cmd const[2147775578], arg intptr)
+ioctl$dev_ppp_1074820173_22(fd fd_ppp, cmd const[1074820173], arg ptr64[in, ppp_option_data])
+ioctl$dev_ppp_2147775574_23(fd fd_ppp, cmd const[2147775574], arg ptr64[in, int64])
+ioctl$dev_ppp_2147775574_24(fd fd_ppp, cmd const[2147775574], arg intptr)
+ioctl$dev_ppp_1074033728_25(fd fd_ppp, cmd const[1074033728], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033728_26(fd fd_ppp, cmd const[1074033728], arg intptr)
+ioctl$dev_ppp_2147775553_27(fd fd_ppp, cmd const[2147775553], arg ptr64[in, int64])
+ioctl$dev_ppp_2147775553_28(fd fd_ppp, cmd const[2147775553], arg intptr)
+ioctl$dev_ppp_2148037695_29(fd fd_ppp, cmd const[2148037695], arg ptr64[in, int64])
+ioctl$dev_ppp_2148037695_30(fd fd_ppp, cmd const[2148037695], arg intptr)
+ioctl$dev_ppp_2148561983_31(fd fd_ppp, cmd const[2148561983], arg ptr64[in, int64])
+ioctl$dev_ppp_2148561983_32(fd fd_ppp, cmd const[2148561983], arg intptr)
+ioctl$dev_ppp_1074033745_33(fd fd_ppp, cmd const[1074033745], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033745_34(fd fd_ppp, cmd const[1074033745], arg intptr)
+ioctl$dev_ppp_3221779532_35(fd fd_ppp, cmd const[3221779532], arg ptr64[in, npioctl])
+ioctl$dev_ppp_1074295883_36(fd fd_ppp, cmd const[1074295883], arg ptr64[in, npioctl])
+ioctl$dev_ppp_1074820167_37(fd fd_ppp, cmd const[1074820167], arg ptr64[in, sock_fprog_7887])
+ioctl$dev_ppp_1074820166_38(fd fd_ppp, cmd const[1074820166], arg ptr64[in, sock_fprog_7887])
+ioctl$dev_ppp_1074033723_39(fd fd_ppp, cmd const[1074033723], arg ptr64[in, int64])
+ioctl$dev_ppp_1074033723_40(fd fd_ppp, cmd const[1074033723], arg intptr)
+
+ppp_option_data {
+	element_0	ptr64[in, int8]
+	element_1	int32
+	element_2	int32
+}
+
+sock_fprog_7887 {
+	element_0	int16
+	element_1	ptr64[in, sock_filter]
+}

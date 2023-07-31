@@ -1,0 +1,4 @@
+resource fd_kpageflags[fd]
+syz_open_dev$dev_kpageflags(dev ptr64[in, string["/dev/kpageflags"]], id intptr, flags flags[open_flags]) fd_kpageflags
+close$dev_kpageflags(fd fd_kpageflags)
+read$dev_kpageflags(fd fd_kpageflags, buf buffer[out], count len[buf])

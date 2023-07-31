@@ -1,0 +1,22 @@
+ioctl$dev_ashmem_1090549505_0(fd fd_ashmem, cmd const[1090549505], arg ptr64[in, int64])
+ioctl$dev_ashmem_1090549505_1(fd fd_ashmem, cmd const[1090549505], arg intptr)
+ioctl$dev_ashmem_2164291330_2(fd fd_ashmem, cmd const[2164291330], arg ptr64[in, int64])
+ioctl$dev_ashmem_2164291330_3(fd fd_ashmem, cmd const[2164291330], arg intptr)
+ioctl$dev_ashmem_1074296579_4(fd fd_ashmem, cmd const[1074296579], arg ptr64[in, int64])
+ioctl$dev_ashmem_1074296579_5(fd fd_ashmem, cmd const[1074296579], arg intptr)
+ioctl$dev_ashmem_30468_6(fd fd_ashmem, cmd const[30468], arg ptr64[in, int64])
+ioctl$dev_ashmem_30468_7(fd fd_ashmem, cmd const[30468], arg intptr)
+ioctl$dev_ashmem_1074296581_8(fd fd_ashmem, cmd const[1074296581], arg ptr64[in, int64])
+ioctl$dev_ashmem_1074296581_9(fd fd_ashmem, cmd const[1074296581], arg intptr)
+ioctl$dev_ashmem_30470_10(fd fd_ashmem, cmd const[30470], arg ptr64[in, int64])
+ioctl$dev_ashmem_30470_11(fd fd_ashmem, cmd const[30470], arg intptr)
+ioctl$dev_ashmem_1074296583_12(fd fd_ashmem, cmd const[1074296583], arg ptr64[in, ashmem_pin])
+ioctl$dev_ashmem_1074296584_13(fd fd_ashmem, cmd const[1074296584], arg ptr64[in, ashmem_pin])
+ioctl$dev_ashmem_30473_14(fd fd_ashmem, cmd const[30473], arg ptr64[in, ashmem_pin])
+ioctl$dev_ashmem_30474_15(fd fd_ashmem, cmd const[30474], arg ptr64[in, int64])
+ioctl$dev_ashmem_30474_16(fd fd_ashmem, cmd const[30474], arg intptr)
+ashmem_pin {
+	element_0	int32
+	element_1	int32
+}
+

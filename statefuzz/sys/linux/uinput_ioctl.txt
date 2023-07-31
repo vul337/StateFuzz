@@ -1,0 +1,66 @@
+ioctl$dev_uinput_2147767597_0(fd fd_uinput, cmd const[2147767597], arg ptr64[in, int64])
+ioctl$dev_uinput_2147767597_1(fd fd_uinput, cmd const[2147767597], arg intptr)
+ioctl$dev_uinput_21761_2(fd fd_uinput, cmd const[21761], arg ptr64[in, int64])
+ioctl$dev_uinput_21761_3(fd fd_uinput, cmd const[21761], arg intptr)
+ioctl$dev_uinput_21762_4(fd fd_uinput, cmd const[21762], arg ptr64[in, int64])
+ioctl$dev_uinput_21762_5(fd fd_uinput, cmd const[21762], arg intptr)
+ioctl$dev_uinput_1079792899_6(fd fd_uinput, cmd const[1079792899], arg ptr64[in, uinput_setup])
+ioctl$dev_uinput_1074025828_7(fd fd_uinput, cmd const[1074025828], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025828_8(fd fd_uinput, cmd const[1074025828], arg intptr)
+ioctl$dev_uinput_1074025829_9(fd fd_uinput, cmd const[1074025829], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025829_10(fd fd_uinput, cmd const[1074025829], arg intptr)
+ioctl$dev_uinput_1074025830_11(fd fd_uinput, cmd const[1074025830], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025830_12(fd fd_uinput, cmd const[1074025830], arg intptr)
+ioctl$dev_uinput_1074025831_13(fd fd_uinput, cmd const[1074025831], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025831_14(fd fd_uinput, cmd const[1074025831], arg intptr)
+ioctl$dev_uinput_1074025832_15(fd fd_uinput, cmd const[1074025832], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025832_16(fd fd_uinput, cmd const[1074025832], arg intptr)
+ioctl$dev_uinput_1074025833_17(fd fd_uinput, cmd const[1074025833], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025833_18(fd fd_uinput, cmd const[1074025833], arg intptr)
+ioctl$dev_uinput_1074025834_19(fd fd_uinput, cmd const[1074025834], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025834_20(fd fd_uinput, cmd const[1074025834], arg intptr)
+ioctl$dev_uinput_1074025835_21(fd fd_uinput, cmd const[1074025835], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025835_22(fd fd_uinput, cmd const[1074025835], arg intptr)
+ioctl$dev_uinput_1074025837_23(fd fd_uinput, cmd const[1074025837], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025837_24(fd fd_uinput, cmd const[1074025837], arg intptr)
+ioctl$dev_uinput_1074025838_25(fd fd_uinput, cmd const[1074025838], arg ptr64[in, int64])
+ioctl$dev_uinput_1074025838_26(fd fd_uinput, cmd const[1074025838], arg intptr)
+ioctl$dev_uinput_1074287980_27(fd fd_uinput, cmd const[1074287980], arg ptr64[in, int64])
+ioctl$dev_uinput_1074287980_28(fd fd_uinput, cmd const[1074287980], arg intptr)
+ioctl$dev_uinput_3228063176_29(fd fd_uinput, cmd const[3228063176], arg ptr64[in, uinput_ff_upload])
+ioctl$dev_uinput_3228063176_30(fd fd_uinput, cmd const[3228063176], arg ptr64[in, uinput_ff_upload_compat])
+ioctl$dev_uinput_3222033866_31(fd fd_uinput, cmd const[3222033866], arg ptr64[in, uinput_ff_erase])
+ioctl$dev_uinput_1080579529_32(fd fd_uinput, cmd const[1080579529], arg ptr64[in, uinput_ff_upload])
+ioctl$dev_uinput_1080579529_33(fd fd_uinput, cmd const[1080579529], arg ptr64[in, uinput_ff_upload_compat])
+ioctl$dev_uinput_1074550219_34(fd fd_uinput, cmd const[1074550219], arg ptr64[in, uinput_ff_erase])
+
+uinput_ff_upload_compat {
+	element_0	int32
+	element_1	int32
+	element_2	ff_effect_compat
+	element_3	ff_effect_compat
+}
+
+ff_effect_compat {
+	element_0	int16
+	element_1	int16
+	element_2	int16
+	element_3	ff_trigger
+	element_4	ff_replay
+	element_5	union_anon_80_1560
+}
+
+union_anon_80_1560 {
+	element_0	ff_periodic_effect_compat
+}
+
+ff_periodic_effect_compat {
+	element_0	int16
+	element_1	int16
+	element_2	int16
+	element_3	int16
+	element_4	int16
+	element_5	ff_envelope
+	element_6	int32
+	element_7	int32
+}

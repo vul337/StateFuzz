@@ -1,0 +1,1 @@
+write$dev_watchdog(fd fd_watchdog, buf buffer[in], count len[buf])

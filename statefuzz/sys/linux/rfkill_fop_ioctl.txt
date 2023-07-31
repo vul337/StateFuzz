@@ -1,0 +1,4 @@
+ioctl$dev_rfkill_82_0(fd fd_rfkill, cmd const[82], arg ptr64[in, int64])
+ioctl$dev_rfkill_82_1(fd fd_rfkill, cmd const[82], arg intptr)
+ioctl$dev_rfkill_1_2(fd fd_rfkill, cmd const[1], arg ptr64[in, int64])
+ioctl$dev_rfkill_1_3(fd fd_rfkill, cmd const[1], arg intptr)

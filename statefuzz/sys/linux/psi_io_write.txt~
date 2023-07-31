@@ -1,0 +1,4 @@
+resource fd_pressure_io[fd]
+syz_open_dev$dev_pressure_io(dev ptr64[in, string["/dev/pressure/io"]], id intptr, flags flags[open_flags]) fd_pressure_io
+close$dev_pressure_io(fd fd_pressure_io)
+write$dev_pressure_io (fd fd_pressure_io, buf buffer[in], count len[buf])

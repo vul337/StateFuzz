@@ -1,0 +1,4 @@
+resource fd_rdma_readwrite_threshold[fd]
+syz_open_dev$dev_rdma_readwrite_threshold(dev ptr64[in, string["/dev/rdma_readwrite_threshold"]], id intptr, flags flags[open_flags]) fd_rdma_readwrite_threshold
+close$dev_rdma_readwrite_threshold(fd fd_rdma_readwrite_threshold)
+read$dev_rdma_readwrite_threshold(fd fd_rdma_readwrite_threshold, buf buffer[out], count len[buf])

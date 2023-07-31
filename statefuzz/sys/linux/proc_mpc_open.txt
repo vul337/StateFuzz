@@ -1,0 +1,3 @@
+resource fd_mpc[fd]
+syz_open_dev$dev_mpc(dev ptr64[in, string["/dev/mpc"]], id intptr, flags flags[open_flags]) fd_mpc
+close$dev_mpc(fd fd_mpc)

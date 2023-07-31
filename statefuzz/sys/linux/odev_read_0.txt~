@@ -1,0 +1,1 @@
+read$dev_sequencer2 (fd fd_sequencer2, buf buffer[out], count len[buf])

@@ -1,0 +1,1 @@
+read$dev_admmidi(fd fd_admmidi, buf buffer[out], count len[buf])

@@ -1,0 +1,3 @@
+resource fd_ecryptfs[fd]
+syz_open_dev$dev_ecryptfs(dev ptr64[in, string["/dev/ecryptfs"]], id intptr, flags flags[open_flags]) fd_ecryptfs
+close$dev_ecryptfs(fd fd_ecryptfs)

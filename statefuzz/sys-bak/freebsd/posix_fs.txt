@@ -1,0 +1,108 @@
+# Copyright 2017 syzkaller project authors. All rights reserved.
+# Use of this source code is governed by Apache 2 LICENSE that can be found in the LICENSE file.
+
+include <sys/types.h>
+include <sys/stat.h>
+include <fcntl.h>
+include <unistd.h>
+
+resource fd[int32]: 0xffffffffffffffff, AT_FDCWD
+resource fd_dir[fd]
+
+resource pid[int32]: 0, 0xffffffffffffffff
+resource uid[int32]: 0, 0xffffffffffffffff
+resource gid[int32]: 0, 0xffffffffffffffff
+
+open(file ptr[in, filename], flags flags[open_flags], mode flags[open_mode]) fd
+# Just so that we have something that creates fd_dir resources.
+open$dir(file ptr[in, filename], flags flags[open_flags], mode flags[open_mode]) fd_dir
+openat(fd fd_dir[opt], file ptr[in, filename], flags flags[open_flags], mode flags[open_mode]) fd
+close(fd fd)
+read(fd fd, buf buffer[out], count len[buf])
+readv(fd fd, vec ptr[in, array[iovec_out]], vlen len[vec])
+preadv(fd fd, vec ptr[in, array[iovec_out]], vlen len[vec], off fileoff)
+write(fd fd, buf buffer[in], count len[buf])
+writev(fd fd, vec ptr[in, array[iovec_in]], vlen len[vec])
+pwritev(fd fd, vec ptr[in, array[iovec_in]], vlen len[vec], off fileoff)
+lseek(fd fd, offset fileoff, whence flags[seek_whence])
+dup(oldfd fd) fd
+dup2(oldfd fd, newfd fd) fd
+pipe2(pipefd ptr[out, pipefd], flags flags[pipe_flags])
+freebsd10_pipe(pipefd ptr[out, pipefd])
+fstat(fd fd, statbuf ptr[out, stat])
+freebsd11_stat(file ptr[in, filename], statbuf ptr[out, freebsd11_stat])
+freebsd11_fstat(fd fd, statbuf ptr[out, freebsd11_stat])
+freebsd11_lstat(file ptr[in, filename], statbuf ptr[out, freebsd11_stat])
+posix_fallocate(fd fd, offset fileoff, len intptr)
+posix_fadvise(fd fd, offset fileoff, len intptr, advice flags[fadvise_advice])
+
+pipefd {
+	rfd	fd
+	wfd	fd
+}
+
+iovec_in {
+	addr	buffer[in]
+	len	len[addr, intptr]
+}
+
+iovec_out {
+	addr	buffer[out]
+	len	len[addr, intptr]
+}
+
+freebsd11_stat {
+	dev	int32
+	ino	int32
+	mode	int16
+	nlink	int16
+	uid	uid
+	gid	gid
+	rdev	int32
+	atime	int64
+	ansec	int64
+	mtime	int64
+	mnsec	int64
+	ctime	int64
+	cnsec	int64
+	size	int64
+	blocks	int64
+	blksize	int32
+	flags	int32
+	gen	int32
+	__spare	const[0, int32]
+	btime	int64
+	bnsec	int64
+}
+
+stat {
+	dev	int64
+	ino	int64
+	nlink	int64
+	mode	int16
+	__pad0	const[0, int16]
+	uid	uid
+	gid	gid
+	__pad1	const[0, int32]
+	rdev	int64
+	atime	int64
+	ansec	int64
+	mtime	int64
+	mnsec	int64
+	ctime	int64
+	cnsec	int64
+	btime	int64
+	bnsec	int64
+	size	int64
+	blocks	int64
+	blksize	int32
+	flags	int32
+	gen	int64
+	__spare	array[int64, 10]
+}
+
+open_flags = O_RDONLY, O_WRONLY, O_RDWR, O_APPEND, FASYNC, O_CLOEXEC, O_CREAT, O_DIRECT, O_DIRECTORY, O_EXCL, O_NOCTTY, O_NOFOLLOW, O_NONBLOCK, O_SYNC, O_TRUNC, O_EXEC, O_TTY_INIT, O_VERIFY, O_BENEATH
+open_mode = S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH
+seek_whence = SEEK_SET, SEEK_CUR, SEEK_END, SEEK_DATA, SEEK_HOLE
+pipe_flags = O_NONBLOCK, O_CLOEXEC
+fadvise_advice = POSIX_FADV_NORMAL, POSIX_FADV_RANDOM, POSIX_FADV_SEQUENTIAL, POSIX_FADV_WILLNEED, POSIX_FADV_DONTNEED, POSIX_FADV_NOREUSE

@@ -1,0 +1,1 @@
+write$dev_smbd_max_receive_size (fd fd_smbd_max_receive_size, buf buffer[in], count len[buf])

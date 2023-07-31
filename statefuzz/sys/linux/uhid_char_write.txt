@@ -1,0 +1,1 @@
+write$dev_uhid(fd fd_uhid, buf buffer[in], count len[buf])

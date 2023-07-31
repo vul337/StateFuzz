@@ -1,0 +1,127 @@
+ioctl$dev_tty_19247_0(fd fd_tty, cmd const[19247], arg ptr64[in, int64])
+ioctl$dev_tty_19247_1(fd fd_tty, cmd const[19247], arg intptr)
+ioctl$dev_tty_19248_2(fd fd_tty, cmd const[19248], arg ptr64[in, int64])
+ioctl$dev_tty_19248_3(fd fd_tty, cmd const[19248], arg intptr)
+ioctl$dev_tty_19251_4(fd fd_tty, cmd const[19251], arg ptr64[in, int64])
+ioctl$dev_tty_19251_5(fd fd_tty, cmd const[19251], arg intptr)
+ioctl$dev_tty_19252_6(fd fd_tty, cmd const[19252], arg ptr64[in, int64])
+ioctl$dev_tty_19252_7(fd fd_tty, cmd const[19252], arg intptr)
+ioctl$dev_tty_19253_8(fd fd_tty, cmd const[19253], arg ptr64[in, int64])
+ioctl$dev_tty_19253_9(fd fd_tty, cmd const[19253], arg intptr)
+ioctl$dev_tty_19254_10(fd fd_tty, cmd const[19254], arg ptr64[in, int64])
+ioctl$dev_tty_19254_11(fd fd_tty, cmd const[19254], arg intptr)
+ioctl$dev_tty_19255_12(fd fd_tty, cmd const[19255], arg ptr64[in, int64])
+ioctl$dev_tty_19255_13(fd fd_tty, cmd const[19255], arg intptr)
+ioctl$dev_tty_19282_14(fd fd_tty, cmd const[19282], arg ptr64[in, kbd_repeat])
+ioctl$dev_tty_19258_15(fd fd_tty, cmd const[19258], arg ptr64[in, int64])
+ioctl$dev_tty_19258_16(fd fd_tty, cmd const[19258], arg intptr)
+ioctl$dev_tty_19259_17(fd fd_tty, cmd const[19259], arg ptr64[in, int64])
+ioctl$dev_tty_19259_18(fd fd_tty, cmd const[19259], arg intptr)
+ioctl$dev_tty_19260_19(fd fd_tty, cmd const[19260], arg ptr64[in, int64])
+ioctl$dev_tty_19260_20(fd fd_tty, cmd const[19260], arg intptr)
+ioctl$dev_tty_19261_21(fd fd_tty, cmd const[19261], arg ptr64[in, int64])
+ioctl$dev_tty_19261_22(fd fd_tty, cmd const[19261], arg intptr)
+ioctl$dev_tty_19269_23(fd fd_tty, cmd const[19269], arg ptr64[in, int64])
+ioctl$dev_tty_19269_24(fd fd_tty, cmd const[19269], arg intptr)
+ioctl$dev_tty_19268_25(fd fd_tty, cmd const[19268], arg ptr64[in, int64])
+ioctl$dev_tty_19268_26(fd fd_tty, cmd const[19268], arg intptr)
+ioctl$dev_tty_19299_27(fd fd_tty, cmd const[19299], arg ptr64[in, int64])
+ioctl$dev_tty_19299_28(fd fd_tty, cmd const[19299], arg intptr)
+ioctl$dev_tty_19298_29(fd fd_tty, cmd const[19298], arg ptr64[in, int64])
+ioctl$dev_tty_19298_30(fd fd_tty, cmd const[19298], arg intptr)
+ioctl$dev_tty_19276_31(fd fd_tty, cmd const[19276], arg ptr64[in, kbkeycode])
+ioctl$dev_tty_19277_32(fd fd_tty, cmd const[19277], arg ptr64[in, kbkeycode])
+ioctl$dev_tty_19270_33(fd fd_tty, cmd const[19270], arg ptr64[in, kbentry])
+ioctl$dev_tty_19271_34(fd fd_tty, cmd const[19271], arg ptr64[in, kbentry])
+ioctl$dev_tty_19272_35(fd fd_tty, cmd const[19272], arg ptr64[in, int64])
+ioctl$dev_tty_19272_36(fd fd_tty, cmd const[19272], arg intptr)
+ioctl$dev_tty_19273_37(fd fd_tty, cmd const[19273], arg ptr64[in, int64])
+ioctl$dev_tty_19273_38(fd fd_tty, cmd const[19273], arg intptr)
+ioctl$dev_tty_19274_39(fd fd_tty, cmd const[19274], arg ptr64[in, int64])
+ioctl$dev_tty_19274_40(fd fd_tty, cmd const[19274], arg intptr)
+ioctl$dev_tty_19450_41(fd fd_tty, cmd const[19450], arg ptr64[in, int64])
+ioctl$dev_tty_19450_42(fd fd_tty, cmd const[19450], arg intptr)
+ioctl$dev_tty_19275_43(fd fd_tty, cmd const[19275], arg ptr64[in, int64])
+ioctl$dev_tty_19275_44(fd fd_tty, cmd const[19275], arg intptr)
+ioctl$dev_tty_19451_45(fd fd_tty, cmd const[19451], arg ptr64[in, int64])
+ioctl$dev_tty_19451_46(fd fd_tty, cmd const[19451], arg intptr)
+ioctl$dev_tty_19300_47(fd fd_tty, cmd const[19300], arg ptr64[in, int64])
+ioctl$dev_tty_19300_48(fd fd_tty, cmd const[19300], arg intptr)
+ioctl$dev_tty_19301_49(fd fd_tty, cmd const[19301], arg ptr64[in, int64])
+ioctl$dev_tty_19301_50(fd fd_tty, cmd const[19301], arg intptr)
+ioctl$dev_tty_19249_51(fd fd_tty, cmd const[19249], arg ptr64[in, int64])
+ioctl$dev_tty_19249_52(fd fd_tty, cmd const[19249], arg intptr)
+ioctl$dev_tty_19250_53(fd fd_tty, cmd const[19250], arg ptr64[in, int64])
+ioctl$dev_tty_19250_54(fd fd_tty, cmd const[19250], arg intptr)
+ioctl$dev_tty_19278_55(fd fd_tty, cmd const[19278], arg ptr64[in, int64])
+ioctl$dev_tty_19278_56(fd fd_tty, cmd const[19278], arg intptr)
+ioctl$dev_tty_19313_58(fd fd_tty, cmd const[19313], arg ptr64[in, int64])
+ioctl$dev_tty_19313_59(fd fd_tty, cmd const[19313], arg intptr)
+ioctl$dev_tty_19312_60(fd fd_tty, cmd const[19312], arg ptr64[in, int64])
+ioctl$dev_tty_19312_61(fd fd_tty, cmd const[19312], arg intptr)
+ioctl$dev_tty_19265_62(fd fd_tty, cmd const[19265], arg ptr64[in, int64])
+ioctl$dev_tty_19265_63(fd fd_tty, cmd const[19265], arg intptr)
+ioctl$dev_tty_19264_64(fd fd_tty, cmd const[19264], arg ptr64[in, int64])
+ioctl$dev_tty_19264_65(fd fd_tty, cmd const[19264], arg intptr)
+ioctl$dev_tty_19306_66(fd fd_tty, cmd const[19306], arg ptr64[in, int16])
+ioctl$dev_tty_19305_67(fd fd_tty, cmd const[19305], arg ptr64[in, int64])
+ioctl$dev_tty_19305_68(fd fd_tty, cmd const[19305], arg intptr)
+ioctl$dev_tty_19304_69(fd fd_tty, cmd const[19304], arg ptr64[in, int64])
+ioctl$dev_tty_19304_70(fd fd_tty, cmd const[19304], arg intptr)
+ioctl$dev_tty_19303_71(fd fd_tty, cmd const[19303], arg ptr64[in, unimapdesc])
+ioctl$dev_tty_19302_72(fd fd_tty, cmd const[19302], arg ptr64[in, unimapdesc])
+ioctl$dev_tty_21532_73(fd fd_tty, cmd const[21532], arg ptr64[in, int64])
+ioctl$dev_tty_21532_74(fd fd_tty, cmd const[21532], arg intptr)
+ioctl$dev_tty_22018_75(fd fd_tty, cmd const[22018], arg ptr64[in, vt_mode])
+ioctl$dev_tty_22017_76(fd fd_tty, cmd const[22017], arg ptr64[in, int64])
+ioctl$dev_tty_22017_77(fd fd_tty, cmd const[22017], arg intptr)
+ioctl$dev_tty_22019_78(fd fd_tty, cmd const[22019], arg ptr64[in, int64])
+ioctl$dev_tty_22019_79(fd fd_tty, cmd const[22019], arg intptr)
+ioctl$dev_tty_22016_80(fd fd_tty, cmd const[22016], arg ptr64[in, int64])
+ioctl$dev_tty_22016_81(fd fd_tty, cmd const[22016], arg intptr)
+ioctl$dev_tty_22022_82(fd fd_tty, cmd const[22022], arg ptr64[in, int64])
+ioctl$dev_tty_22022_83(fd fd_tty, cmd const[22022], arg intptr)
+ioctl$dev_tty_22031_84(fd fd_tty, cmd const[22031], arg ptr64[in, vt_setactivate])
+ioctl$dev_tty_22023_85(fd fd_tty, cmd const[22023], arg ptr64[in, int64])
+ioctl$dev_tty_22023_86(fd fd_tty, cmd const[22023], arg intptr)
+ioctl$dev_tty_22021_87(fd fd_tty, cmd const[22021], arg ptr64[in, int64])
+ioctl$dev_tty_22021_88(fd fd_tty, cmd const[22021], arg intptr)
+ioctl$dev_tty_22024_89(fd fd_tty, cmd const[22024], arg ptr64[in, int64])
+ioctl$dev_tty_22024_90(fd fd_tty, cmd const[22024], arg intptr)
+ioctl$dev_tty_22025_91(fd fd_tty, cmd const[22025], arg ptr64[in, int64])
+ioctl$dev_tty_22025_92(fd fd_tty, cmd const[22025], arg intptr)
+ioctl$dev_tty_22026_93(fd fd_tty, cmd const[22026], arg ptr64[in, vt_consize])
+ioctl$dev_tty_22027_94(fd fd_tty, cmd const[22027], arg ptr64[in, int64])
+ioctl$dev_tty_22027_95(fd fd_tty, cmd const[22027], arg intptr)
+ioctl$dev_tty_22028_96(fd fd_tty, cmd const[22028], arg ptr64[in, int64])
+ioctl$dev_tty_22028_97(fd fd_tty, cmd const[22028], arg intptr)
+ioctl$dev_tty_22029_98(fd fd_tty, cmd const[22029], arg ptr64[in, int64])
+ioctl$dev_tty_22029_99(fd fd_tty, cmd const[22029], arg intptr)
+ioctl$dev_tty_22030_100(fd fd_tty, cmd const[22030], arg ptr64[in, vt_event])
+unimapdesc {
+	element_0	int16
+	element_1	ptr64[in, unipair]
+}
+
+kbd_repeat {
+	element_0	int32
+	element_1	int32
+}
+
+
+
+vt_setactivate {
+	element_0	int32
+	element_1	vt_mode
+}
+
+
+
+
+vt_event {
+	element_0	int32
+	element_1	int32
+	element_2	int32
+	element_3	array[int32, 4]
+}
+

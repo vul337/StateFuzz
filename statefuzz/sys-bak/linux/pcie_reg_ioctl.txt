@@ -1,0 +1,4 @@
+resource fd_pcie_reg_dev[fd]
+syz_open_dev$dev_pcie_reg_dev(dev ptr64[in, string["/dev/pcie_reg_dev"]], id intptr, flags flags[open_flags]) fd_pcie_reg_dev
+ioctl$dev_pcie_reg_dev_1_0(fd fd_pcie_reg_dev, cmd const[1], arg ptr64[in, int64])
+ioctl$dev_pcie_reg_dev_1_1(fd fd_pcie_reg_dev, cmd const[1], arg intptr)

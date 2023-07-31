@@ -1,0 +1,4 @@
+resource fd_ptp0[fd]
+syz_open_dev$dev_ptp0(dev ptr64[in, string["/dev/ptp0"]], id intptr, flags flags[open_flags]) fd_ptp0
+close$dev_ptp0(fd fd_ptp0)
+read$dev_ptp0(fd fd_ptp0, buf buffer[out], count len[buf])

@@ -1,0 +1,1 @@
+write$dev_hidraw(fd fd_hidraw, buf buffer[in], count len[buf])

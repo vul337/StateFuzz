@@ -1,0 +1,1 @@
+write$dev_smp_affinity (fd fd_smp_affinity, buf buffer[in], count len[buf])

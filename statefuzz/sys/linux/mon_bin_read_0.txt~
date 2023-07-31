@@ -1,0 +1,4 @@
+resource fd_usbmon1[fd]
+syz_open_dev$dev_usbmon1(dev ptr64[in, string["/dev/usbmon1"]], id intptr, flags flags[open_flags]) fd_usbmon1
+close$dev_usbmon1(fd fd_usbmon1)
+read$dev_usbmon1 (fd fd_usbmon1, buf buffer[out], count len[buf])

@@ -1,0 +1,3 @@
+resource fd_sg0[fd]
+syz_open_dev$dev_sg0(dev ptr64[in, string["/dev/sg0"]], id intptr, flags flags[open_flags]) fd_sg0
+close$dev_sg0(fd fd_sg0)

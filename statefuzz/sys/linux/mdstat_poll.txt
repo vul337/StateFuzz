@@ -1,0 +1,3 @@
+resource fd_mdstat[fd]
+syz_open_dev$dev_mdstat(dev ptr64[in, string["/dev/mdstat"]], id intptr, flags flags[open_flags]) fd_mdstat
+close$dev_mdstat(fd fd_mdstat)

@@ -1,0 +1,4 @@
+resource fd_LinuxExtensionsEnabled[fd]
+syz_open_dev$dev_LinuxExtensionsEnabled(dev ptr64[in, string["/dev/LinuxExtensionsEnabled"]], id intptr, flags flags[open_flags]) fd_LinuxExtensionsEnabled
+close$dev_LinuxExtensionsEnabled(fd fd_LinuxExtensionsEnabled)
+write$dev_LinuxExtensionsEnabled (fd fd_LinuxExtensionsEnabled, buf buffer[in], count len[buf])

@@ -1,0 +1,36 @@
+resource fd_megadev0[fd]
+syz_open_dev$dev_megadev0(dev ptr64[in, string["/dev/megadev0"]], id intptr, flags flags[open_flags]) fd_megadev0
+ioctl$dev_megadev0_109_0(fd fd_megadev0, cmd const[109], arg ptr64[in, int64])
+ioctl$dev_megadev0_109_1(fd fd_megadev0, cmd const[109], arg intptr)
+ioctl$dev_megadev0_128_2(fd fd_megadev0, cmd const[128], arg ptr64[in, mimd])
+ioctl$dev_megadev0_128_3(fd fd_megadev0, cmd const[128], arg ptr64[in, mraid_passthru_t])
+mraid_passthru_t {
+	element_0	int8
+	element_1	int8
+	element_2	int8
+	element_3	int8
+	element_4	int8
+	element_5	int8
+	element_6	array[int8, 10]
+	element_7	int8
+	element_8	int8
+	element_9	array[int8, 32]
+	element_10	int8
+	element_11	int8
+	element_12	int32
+	element_13	int32
+}
+
+union_anon_64 {
+	element_0	array[int8, 16]
+}
+
+mimd {
+	element_0	int32
+	element_1	int32
+	element_2	union_anon_64
+	element_3	array[int8, 18]
+	element_4	mraid_passthru_t
+	element_5	ptr64[in, int8]
+} [packed]
+

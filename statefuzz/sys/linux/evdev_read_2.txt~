@@ -1,0 +1,4 @@
+resource fd_input_event2[fd]
+syz_open_dev$dev_input_event2(dev ptr64[in, string["/dev/input/event2"]], id intptr, flags flags[open_flags]) fd_input_event2
+close$dev_input_event2(fd fd_input_event2)
+read$dev_input_event2 (fd fd_input_event2, buf buffer[out], count len[buf])

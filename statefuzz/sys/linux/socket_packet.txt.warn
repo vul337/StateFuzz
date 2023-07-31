@@ -1,0 +1,4 @@
+bad-field-number: sockaddr_ll: syz=8 kernel=7
+bad-field-size: sockaddr_ll.sll_addr: syz=6 kernel=8
+no-such-struct: packet_mreq
+no-such-struct: packet_fanout_val

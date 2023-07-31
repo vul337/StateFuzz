@@ -1,0 +1,1 @@
+read$dev_flush(fd fd_flush, buf buffer[out], count len[buf])

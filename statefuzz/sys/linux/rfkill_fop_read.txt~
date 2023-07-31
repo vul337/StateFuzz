@@ -1,0 +1,1 @@
+read$dev_rfkill (fd fd_rfkill, buf buffer[out], count len[buf])

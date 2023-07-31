@@ -1,0 +1,8 @@
+resource fd_hidraw[fd]
+syz_open_dev$dev_hidraw(dev ptr64[in, string["/dev/hidraw"]], id intptr, flags flags[open_flags]) fd_hidraw
+ioctl$dev_hidraw_2147764225_0(fd fd_hidraw, cmd const[2147764225], arg ptr64[in, int64])
+ioctl$dev_hidraw_2147764225_1(fd fd_hidraw, cmd const[2147764225], arg intptr)
+ioctl$dev_hidraw_2416199682_2(fd fd_hidraw, cmd const[2416199682], arg ptr64[in, int64])
+ioctl$dev_hidraw_2416199682_3(fd fd_hidraw, cmd const[2416199682], arg intptr)
+ioctl$dev_hidraw_2148026371_4(fd fd_hidraw, cmd const[2148026371], arg ptr64[in, int64])
+ioctl$dev_hidraw_2148026371_5(fd fd_hidraw, cmd const[2148026371], arg intptr)

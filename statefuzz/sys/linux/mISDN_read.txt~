@@ -1,0 +1,1 @@
+read$dev_mISDNtimer (fd fd_mISDNtimer, buf buffer[out], count len[buf])

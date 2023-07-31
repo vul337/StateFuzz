@@ -1,0 +1,1066 @@
+// Copyright 2015 syzkaller project authors. All rights reserved.
+// Use of this source code is governed by Apache 2 LICENSE that can be found in the LICENSE file.
+
+package ipc
+
+import (
+	"encoding/binary"
+	"fmt"
+	"io"
+	"io/ioutil"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"reflect"
+	"strings"
+	"sync/atomic"
+	"time"
+	"unsafe"
+
+	"github.com/google/syzkaller/pkg/cover"
+	"github.com/google/syzkaller/pkg/log"
+	"github.com/google/syzkaller/pkg/osutil"
+	"github.com/google/syzkaller/pkg/signal"
+	"github.com/google/syzkaller/prog"
+	"github.com/google/syzkaller/sys/targets"
+)
+
+// Configuration flags for Config.Flags.
+type EnvFlags uint64
+
+// Note: New / changed flags should be added to parse_env_flags in executor.cc
+const (
+	FlagDebug            EnvFlags = 1 << iota // debug output from executor
+	FlagSignal                                // collect feedback signals (coverage)
+	FlagSandboxSetuid                         // impersonate nobody user
+	FlagSandboxNamespace                      // use namespaces for sandboxing
+	FlagSandboxAndroid                        // use Android sandboxing for the untrusted_app domain
+	FlagExtraCover                            // collect extra coverage
+	FlagEnableTun                             // setup and use /dev/tun for packet injection
+	FlagEnableNetDev                          // setup more network devices for testing
+	FlagEnableNetReset                        // reset network namespace between programs
+	FlagEnableCgroups                         // setup cgroups for testing
+	FlagEnableCloseFds                        // close fds after each program
+	FlagEnableDevlinkPCI                      // setup devlink PCI device
+)
+
+// Per-exec flags for ExecOpts.Flags:
+type ExecFlags uint64
+
+const (
+	FlagCollectCover ExecFlags = 1 << iota // collect coverage
+	FlagDedupCover                         // deduplicate coverage in executor
+	FlagInjectFault                        // inject a fault in this execution (see ExecOpts)
+	FlagCollectComps                       // collect KCOV comparisons
+	FlagThreaded                           // use multiple threads to mitigate blocked syscalls
+	FlagCollide                            // collide syscalls to provoke data races
+)
+
+type ExecOpts struct {
+	Flags     ExecFlags
+	FaultCall int // call index for fault injection (0-based)
+	FaultNth  int // fault n-th operation in the call (0-based)
+}
+
+// Config is the configuration for Env.
+type Config struct {
+	// Path to executor binary.
+	Executor string
+
+	UseShmem      bool // use shared memory instead of pipes for communication
+	UseForkServer bool // use extended protocol with handshake
+
+	// Flags are configuation flags, defined above.
+	Flags EnvFlags
+
+	// Timeout is the execution timeout for a single program.
+	Timeout time.Duration
+}
+
+type CallFlags uint32
+
+const (
+	CallExecuted      CallFlags = 1 << iota // was started at all
+	CallFinished                            // finished executing (rather than blocked forever)
+	CallBlocked                             // finished but blocked during execution
+	CallFaultInjected                       // fault was injected into this call
+)
+
+type CallInfo struct {
+	Flags       CallFlags
+	Signal      []uint32 // feedback signal, filled if FlagSignal is set
+	PcCover     []uint32 // per-call coverage, filled if FlagSignal is set and cover == true,
+	SvSignal    []uint32 // per-call sv edge coverage, filled if FlagSignal is set and cover == true,
+	SvCover     []uint64 // per-call sv bb coverage, filled if FlagSignal is set and cover == true,
+	SvExtremum  []uint64 // per-call sv extremum,
+	ProgSvCover []uint64 // programs sv bb coverage, filled if FlagSignal is set and cover == true,
+	ProgPcCover []uint32 // programs bb coverage, filled if FlagSignal is set and cover == true,
+	// if dedup == false, then cov effectively contains a trace, otherwise duplicates are removed
+	Comps   prog.CompMap // per-call comparison operands
+	SvComps prog.CompMap // per-call state constraint hints
+	Errno   int          // call errno (0 if the call was successful)
+}
+
+type ProgInfo struct {
+	Calls []CallInfo
+	Extra CallInfo // stores Signal and Cover collected from background threads
+}
+
+type Env struct {
+	in  []byte
+	out []byte
+
+	cmd       *command
+	inFile    *os.File
+	outFile   *os.File
+	bin       []string
+	linkedBin string
+	pid       int
+	config    *Config
+
+	StatExecs    uint64
+	StatRestarts uint64
+
+	SvRanges signal.SvRanges
+	SvPairs  map[uint32][]uint32
+	// map[SvNo][[0]Min, [1]Max]
+}
+
+const (
+	outputSize = 16 << 20
+
+	statusFail = 67
+
+	// Comparison types masks taken from KCOV headers.
+	compSizeMask  = 6
+	compSize8     = 6
+	compConstMask = 1
+
+	extraReplyIndex = 0xffffffff // uint32(-1)
+)
+
+func SandboxToFlags(sandbox string) (EnvFlags, error) {
+	switch sandbox {
+	case "none":
+		return 0, nil
+	case "setuid":
+		return FlagSandboxSetuid, nil
+	case "namespace":
+		return FlagSandboxNamespace, nil
+	case "android":
+		return FlagSandboxAndroid, nil
+	default:
+		return 0, fmt.Errorf("sandbox must contain one of none/setuid/namespace/android")
+	}
+}
+
+func FlagsToSandbox(flags EnvFlags) string {
+	if flags&FlagSandboxSetuid != 0 {
+		return "setuid"
+	} else if flags&FlagSandboxNamespace != 0 {
+		return "namespace"
+	} else if flags&FlagSandboxAndroid != 0 {
+		return "android"
+	}
+	return "none"
+}
+
+func MakeEnv(config *Config, pid int) (*Env, error) {
+	var inf, outf *os.File
+	var inmem, outmem []byte
+	if config.UseShmem {
+		var err error
+		inf, inmem, err = osutil.CreateMemMappedFile(prog.ExecBufferSize)
+		if err != nil {
+			return nil, err
+		}
+		defer func() {
+			if inf != nil {
+				osutil.CloseMemMappedFile(inf, inmem)
+			}
+		}()
+		outf, outmem, err = osutil.CreateMemMappedFile(outputSize)
+		if err != nil {
+			return nil, err
+		}
+		defer func() {
+			if outf != nil {
+				osutil.CloseMemMappedFile(outf, outmem)
+			}
+		}()
+	} else {
+		inmem = make([]byte, prog.ExecBufferSize)
+		outmem = make([]byte, outputSize)
+	}
+	env := &Env{
+		in:       inmem,
+		out:      outmem,
+		inFile:   inf,
+		outFile:  outf,
+		bin:      strings.Split(config.Executor, " "),
+		pid:      pid,
+		config:   config,
+		SvRanges: nil,
+		SvPairs:  nil,
+	}
+	if len(env.bin) == 0 {
+		return nil, fmt.Errorf("binary is empty string")
+	}
+	env.bin[0] = osutil.Abs(env.bin[0]) // we are going to chdir
+	// Append pid to binary name.
+	// E.g. if binary is 'syz-executor' and pid=15,
+	// we create a link from 'syz-executor.15' to 'syz-executor' and use 'syz-executor.15' as binary.
+	// This allows to easily identify program that lead to a crash in the log.
+	// Log contains pid in "executing program 15" and crashes usually contain "Comm: syz-executor.15".
+	// Note: pkg/report knowns about this and converts "syz-executor.15" back to "syz-executor".
+	base := filepath.Base(env.bin[0])
+	pidStr := fmt.Sprintf(".%v", pid)
+	const maxLen = 16 // TASK_COMM_LEN is currently set to 16
+	if len(base)+len(pidStr) >= maxLen {
+		// Remove beginning of file name, in tests temp files have unique numbers at the end.
+		base = base[len(base)+len(pidStr)-maxLen+1:]
+	}
+	binCopy := filepath.Join(filepath.Dir(env.bin[0]), base+pidStr)
+	if err := os.Link(env.bin[0], binCopy); err == nil {
+		env.bin[0] = binCopy
+		env.linkedBin = binCopy
+	}
+	inf = nil
+	outf = nil
+	return env, nil
+}
+
+func (env *Env) Close() error {
+	if env.cmd != nil {
+		env.cmd.close()
+	}
+	if env.linkedBin != "" {
+		os.Remove(env.linkedBin)
+	}
+	var err1, err2 error
+	if env.inFile != nil {
+		err1 = osutil.CloseMemMappedFile(env.inFile, env.in)
+	}
+	if env.outFile != nil {
+		err2 = osutil.CloseMemMappedFile(env.outFile, env.out)
+	}
+	switch {
+	case err1 != nil:
+		return err1
+	case err2 != nil:
+		return err2
+	default:
+		return nil
+	}
+}
+
+var rateLimit = time.NewTicker(1 * time.Second)
+
+// Exec starts executor binary to execute program p and returns information about the execution:
+// output: process output
+// info: per-call info
+// hanged: program hanged and was killed
+// err0: failed to start the process or bug in executor itself
+func (env *Env) Exec(opts *ExecOpts, p *prog.Prog) (output []byte, info *ProgInfo, hanged bool, err0 error) {
+	// Copy-in serialized program.
+	progSize, err := p.SerializeForExec(env.in)
+	if err != nil {
+		err0 = fmt.Errorf("failed to serialize: %v", err)
+		return
+	}
+	var progData []byte
+	if !env.config.UseShmem {
+		progData = env.in[:progSize]
+	}
+	// Zero out the first two words (ncmd and nsig), so that we don't have garbage there
+	// if executor crashes before writing non-garbage there.
+	for i := 0; i < 4; i++ {
+		env.out[i] = 0
+	}
+
+	atomic.AddUint64(&env.StatExecs, 1)
+	if env.cmd == nil {
+		if p.Target.OS != "test" && targets.Get(p.Target.OS, p.Target.Arch).HostFuzzer {
+			// The executor is actually ssh,
+			// starting them too frequently leads to timeouts.
+			<-rateLimit.C
+		}
+		tmpDirPath := "./"
+		atomic.AddUint64(&env.StatRestarts, 1)
+		env.cmd, err0 = makeCommand(env.pid, env.bin, env.config, env.inFile, env.outFile, env.out, tmpDirPath)
+		if err0 != nil {
+			return
+		}
+	}
+	output, hanged, err0 = env.cmd.exec(opts, progData)
+	if err0 != nil {
+		env.cmd.close()
+		env.cmd = nil
+		return
+	}
+
+	info, err0 = env.parseOutput(p)
+	if info != nil && env.config.Flags&FlagSignal == 0 {
+		addFallbackSignal(p, info)
+	}
+	if !env.config.UseForkServer {
+		env.cmd.close()
+		env.cmd = nil
+	}
+	return
+}
+
+// addFallbackSignal computes simple fallback signal in cases we don't have real coverage signal.
+// We use syscall number or-ed with returned errno value as signal.
+// At least this gives us all combinations of syscall+errno.
+func addFallbackSignal(p *prog.Prog, info *ProgInfo) {
+	callInfos := make([]prog.CallInfo, len(info.Calls))
+	for i, inf := range info.Calls {
+		if inf.Flags&CallExecuted != 0 {
+			callInfos[i].Flags |= prog.CallExecuted
+		}
+		if inf.Flags&CallFinished != 0 {
+			callInfos[i].Flags |= prog.CallFinished
+		}
+		if inf.Flags&CallBlocked != 0 {
+			callInfos[i].Flags |= prog.CallBlocked
+		}
+		callInfos[i].Errno = inf.Errno
+	}
+	p.FallbackSignal(callInfos)
+	for i, inf := range callInfos {
+		info.Calls[i].Signal = inf.Signal
+		info.Calls[i].SvSignal = inf.SvSignal
+		info.Calls[i].SvCover = inf.SvCover
+	}
+}
+
+func (env *Env) parseOutput(p *prog.Prog) (*ProgInfo, error) {
+	pSvCover := make([]uint64, 0)
+	pPcCover := make([]uint32, 0)
+	pSvSignal := make(map[uint32]map[uint32]map[uint32]bool)
+	pSvValue := make(map[uint32]uint32)
+	out := env.out
+	ncmd, ok := readUint32(&out)
+	if !ok {
+		return nil, fmt.Errorf("failed to read number of calls")
+	}
+	info := &ProgInfo{Calls: make([]CallInfo, len(p.Calls))}
+	extraParts := make([]CallInfo, 0)
+	for i := uint32(0); i < ncmd; i++ {
+		if len(out) < int(unsafe.Sizeof(callReply{})) {
+			return nil, fmt.Errorf("failed to read call %v reply", i)
+		}
+		reply := *(*callReply)(unsafe.Pointer(&out[0]))
+		out = out[unsafe.Sizeof(callReply{}):]
+		var inf *CallInfo
+		if reply.index != extraReplyIndex {
+			if int(reply.index) >= len(info.Calls) {
+				return nil, fmt.Errorf("bad call %v index %v/%v", i, reply.index, len(info.Calls))
+			}
+			if num := p.Calls[reply.index].Meta.ID; int(reply.num) != num {
+				return nil, fmt.Errorf("wrong call %v num %v/%v", i, reply.num, num)
+			}
+			inf = &info.Calls[reply.index]
+			if inf.Flags != 0 || inf.Signal != nil {
+				return nil, fmt.Errorf("duplicate reply for call %v/%v/%v", i, reply.index, reply.num)
+			}
+			inf.Errno = int(reply.errno)
+			inf.Flags = CallFlags(reply.flags)
+		} else {
+			extraParts = append(extraParts, CallInfo{})
+			inf = &extraParts[len(extraParts)-1]
+		}
+		var tmpSignal []uint32
+		if tmpSignal, ok = readUint32Array(&out, reply.signalSize); !ok {
+			return nil, fmt.Errorf("call %v/%v/%v: signal overflow: %v/%v",
+				i, reply.index, reply.num, reply.signalSize, len(out))
+		}
+		var errSv error
+		var svCompMap prog.CompMap
+		inf.Signal, inf.SvSignal, inf.SvCover, inf.SvExtremum, svCompMap, errSv = env.parseSvCover(tmpSignal, pSvSignal, pSvValue)
+		// log.Logf(0, "size of pSvSignal %v", len(pSvSignal))
+		if errSv != nil {
+			return nil, errSv
+		}
+
+		if inf.PcCover, ok = readUint32Array(&out, reply.coverSize); !ok {
+			return nil, fmt.Errorf("call %v/%v/%v: cover overflow: %v/%v",
+				i, reply.index, reply.num, reply.coverSize, len(out))
+		}
+		// for _, i := range inf.PcCover {
+		// 	log.Logf(0, "PcCover : %x", i)
+		// }
+
+		comps, err := readComps(&out, reply.compsSize)
+		if err != nil {
+			return nil, err
+		}
+		// for i, sub_comps := range comps {
+		// 	log.Logf(0, "key 1: %v", i)
+		// 	for j, k := range sub_comps {
+		// 		log.Logf(0, "	%v: %v", j, k)
+		// 	}
+		// }
+		// log.Logf(0, "ipc: syscall %v done", reply.num)
+
+		inf.Comps = comps
+		inf.SvComps = svCompMap
+		// log.Logf(0, "parseSvCover, inf.SvComps.Len: %v", len(inf.SvComps))
+		pSvCover = append(pSvCover, inf.SvCover...)
+		pPcCover = append(pPcCover, inf.PcCover...)
+	}
+	// for _, x := range pSvCover {
+	// 	log.Logf(0, "pSvCover : %x", x)
+	// }
+
+	for callIndex := range info.Calls {
+		info.Calls[callIndex].ProgSvCover = pSvCover
+		info.Calls[callIndex].ProgPcCover = pPcCover
+	}
+	if len(extraParts) == 0 {
+		return info, nil
+	}
+	info.Extra = convertExtra(extraParts)
+	return info, nil
+}
+
+func (env *Env) parseSvCover(sign []uint32, pSign map[uint32]map[uint32]map[uint32]bool, pValue map[uint32]uint32) ([]uint32, []uint32, []uint64, []uint64, prog.CompMap, error) {
+	var i uint32
+	var pcSign uint32
+	var svCov uint32
+	var svInstPc uint32
+	var finalSvCover uint64
+	var finalSvExtremum uint64
+	var signLen uint32
+	var pcSignal []uint32
+	var svSignal []uint32
+	var svCover []uint64
+	var svExtremum []uint64
+	var svNo uint32
+	var hitRangeNo uint32
+	var svValue int32
+
+	svCompMap := make(prog.CompMap) // Hint for state-coverage
+	svExtremumUpdate := make(signal.SvExtremum)
+	// var prev uint32
+	// var cur uint32
+
+	// parse svCover (64-bit-len: {rw_type:sv_no:sv_value} = {1:15:32}) to
+	//   svCover (64-bit-len: {svInstPc:rw_type:sv_no:hit_range_no} = {32:1:15:16})
+	signLen = uint32(len(sign))
+	i = 0
+	// prev = 0
+	for {
+		if i >= signLen {
+			break
+		}
+		pcSign = sign[i]
+		// log.Logf(0, "go, current pcSign: %x", pcSign)
+		// log.Logf(0, "check if pcSign == 0x0")
+		if pcSign == 0xffffffff {
+			if i+1 >= signLen {
+				i = i + 1
+				log.Logf(0, "[!] svfeedback: 0xffffffff is in the end of sign[i-1]")
+				break
+			}
+			if i+4 >= signLen {
+				log.Logf(0, "[!] svfeedback: 0xffffffff is in the end of sign[i-4]")
+				break
+				// return nil, nil, nil, nil, fmt.Errorf("parse SvCover from whole signals overflow! %v + 4 >= %v", i, signLen)
+			}
+			if sign[i+1] != (signal.Hash(sign[i]) ^ signal.Hash(sign[i+2]) ^ signal.Hash(sign[i+3])) {
+				log.Logf(0, "[!] svfeedback: svchecksum error!")
+				i = i + 5
+				return nil, nil, nil, nil, nil, fmt.Errorf("[!] svfeedback: svchecksum error! %v != (%v %v %v)", sign[i+1], sign[i], sign[i+2], sign[i+3])
+			}
+
+			svCov = sign[i+2]
+			svNo = sign[i+2] & 0x7fff
+
+			// not sure, try to only trace write instruction
+			// rwType = uint8(sign[i+2] >> 15)
+			// if rwType == 0 {
+			// 	i = i + 5
+			// 	continue
+			// }
+			if _, ok := env.SvRanges[svNo]; !ok {
+				i = i + 5
+				// log.Logf(0, "[!] svNo too big! 0x%x, should < %v", svNo, len(env.SvRanges))
+				continue
+			}
+			svValue = int32(sign[i+3])
+			// huge overhead caused by this loop
+			for _, value := range env.SvRanges[svNo] {
+				// add hint
+				// log.Logf(0, "add svcompmap: c[%v][%v]=true", svValue, value)
+				// notice the size of our value is only 4 bytes
+				svCompMap.AddComp(uint64(uint32(svValue)), uint64(uint32(value)))
+			}
+			// log.Logf(0, "sv hit! pc: %v:%v, hex pc: 0x%x, 0x%x", svNo, svValue, svNo, svValue)
+			// check Extremum
+			// for extremum, finalSvExtremum = 0xffff:rw_type:svNo:svValue = 16:1:15:32
+			// 0xffff:sign[i+2]:svValue
+			// avoid duplication and keep the extremum value of all extremum value
+			if _, ok := svExtremumUpdate[svCov]; !ok {
+				svExtremumUpdate[svCov] = make(map[string]int32)
+				svExtremumUpdate[svCov]["max"] = -2147483648
+				svExtremumUpdate[svCov]["min"] = 2147483647
+				svExtremumUpdate[svCov]["update"] = 0
+			}
+			if svValue > svExtremumUpdate[svCov]["max"] {
+				svExtremumUpdate[svCov]["max"] = svValue
+			}
+			if svValue < svExtremumUpdate[svCov]["min"] {
+				svExtremumUpdate[svCov]["min"] = svValue
+			}
+			if len(env.SvRanges[svNo]) == 1 {
+				i = i + 5
+				continue
+			}
+			hitRangeNo = 0
+			for no, value := range env.SvRanges[svNo] {
+				if value >= svValue {
+					// log.Logf(0, "hit range %v:%v", no, value)
+					// type cast
+					hitRangeNo = uint32(no)
+					break
+				}
+			}
+			svCov = (svCov << 16) + (hitRangeNo & 0xffff)
+			svInstPc = uint32(sign[i+4])
+			// svInstPc:svCov = 32:32
+			finalSvCover = (uint64(svInstPc) << 32) | uint64(svCov)
+			svCover = append(svCover, finalSvCover)
+			// log.Logf(0, "svCover append: 0x%x:0x%x=0x%x", svInstPc, svCov, finalSvCover)
+			// cur = svInstPc ^ signal.Hash(svCov)
+			// update pSvCover
+			update := true
+			if d, ok := pSign[svNo]; ok {
+				// svNo hit, how about svInstPc
+				if _, ok2 := d[svInstPc]; ok2 {
+					d[svInstPc][svCov] = true
+					if len(d[svInstPc]) > 1 {
+						// value conflict, delete them
+						// drop the latest value
+						pValue[svNo] = 0xdeadbeef
+						update = false
+					}
+				} else {
+					d[svInstPc] = make(map[uint32]bool)
+					d[svInstPc][svCov] = true
+					// log.Logf(0, "d[%x] = %x ^ hash(%x) = %x", svInstPc, svInstPc, svCov, cur)
+				}
+			} else {
+				pSign[svNo] = make(map[uint32]map[uint32]bool)
+				pSign[svNo][svInstPc] = make(map[uint32]bool)
+				pSign[svNo][svInstPc][svCov] = true
+			}
+
+			if update == true {
+				for _, d := range env.SvPairs[svNo] {
+					v, ok := pValue[d]
+					if ok && v != 0xdeadbeef {
+						// on/off: control whether we do state-aware tracing
+						svSignal = append(svSignal, signal.Hash(pValue[d])^svCov)
+						// log.Logf(0, "svSign append: hash(0x%x)^(0x%x)", pValue[d], svCov)
+						// log.Logf(0, "svSign append: hash(0x%x)^(0x%x^hash(0x%x))=0x%x", di, svInstPc, svCov, signal.Hash(di)^cur)
+					}
+				}
+				pValue[svNo] = svCov
+			}
+			// log.Logf(0, "svSign append: 0x%x", cur)
+			// prev = signal.Hash(cur)
+			i = i + 5
+			continue
+		}
+		// log.Logf(0, "append pcSign: %x", pcSign)
+		pcSignal = append(pcSignal, pcSign)
+		i = i + 1
+	}
+	for svCovTmp, item := range svExtremumUpdate {
+		finalSvExtremum = (uint64(0xffff) << 48) | (uint64(svCovTmp) << 32) | (uint64(uint32(item["max"])) & 0x00000000ffffffff)
+		svExtremum = append(svExtremum, finalSvExtremum)
+		finalSvExtremum = (uint64(0xffff) << 48) | (uint64(svCovTmp) << 32) | (uint64(uint32(item["min"])) & 0x00000000ffffffff)
+		svExtremum = append(svExtremum, finalSvExtremum)
+	}
+	// log.Logf(0, "svCover append: finalSvExtremum 0x%x=0xffff:%x:%x", finalSvExtremum, svCov, svValue)
+	// for svNo, item := range signal.FromRawExtremum(svExtremum, 0) {
+	// 	log.Logf(0, "current extremum: svNo %v, max %v, min %v", svNo, item["max"], item["min"])
+	// }
+	return pcSignal, svSignal, svCover, svExtremum, svCompMap, nil
+}
+
+func convertExtra(extraParts []CallInfo) CallInfo {
+	var extra CallInfo
+	extraPcCover := make(cover.PcCover)
+	extraSvCover := make(signal.SvCover)
+	extraSignal := make(signal.Signal)
+	extraSvSignal := make(signal.Signal)
+	for _, part := range extraParts {
+		extraPcCover.Merge(part.PcCover)
+		extraSvCover.Merge(signal.FromRawL(part.SvCover, 0))
+		extraSignal.Merge(signal.FromRaw(part.Signal, 0))
+		extraSvSignal.Merge(signal.FromRaw(part.SvSignal, 0))
+	}
+	extra.PcCover = extraPcCover.Serialize()
+	extra.SvCover = make([]uint64, len(extraSvCover))
+	extra.SvSignal = make([]uint32, len(extraSvSignal))
+	extra.Signal = make([]uint32, len(extraSignal))
+	i := 0
+	for s := range extraSignal {
+		extra.Signal[i] = uint32(s)
+		i++
+	}
+	j := 0
+	for d := range extraSvSignal {
+		extra.SvSignal[j] = uint32(d)
+		j++
+	}
+	k := 0
+	for d := range extraSvCover {
+		extra.SvCover[k] = uint64(d)
+		k++
+	}
+	return extra
+}
+
+func readComps(outp *[]byte, compsSize uint32) (prog.CompMap, error) {
+	if compsSize == 0 {
+		return nil, nil
+	}
+	compMap := make(prog.CompMap)
+	for i := uint32(0); i < compsSize; i++ {
+		typ, ok := readUint32(outp)
+		if !ok {
+			return nil, fmt.Errorf("failed to read comp %v", i)
+		}
+		if typ > compConstMask|compSizeMask {
+			return nil, fmt.Errorf("bad comp %v type %v", i, typ)
+		}
+		var op1, op2 uint64
+		var ok1, ok2 bool
+		if typ&compSizeMask == compSize8 {
+			op1, ok1 = readUint64(outp)
+			op2, ok2 = readUint64(outp)
+		} else {
+			var tmp1, tmp2 uint32
+			tmp1, ok1 = readUint32(outp)
+			tmp2, ok2 = readUint32(outp)
+			op1, op2 = uint64(tmp1), uint64(tmp2)
+		}
+		if !ok1 || !ok2 {
+			return nil, fmt.Errorf("failed to read comp %v op", i)
+		}
+		if op1 == op2 {
+			continue // it's useless to store such comparisons
+		}
+		compMap.AddComp(op2, op1)
+		if (typ & compConstMask) != 0 {
+			// If one of the operands was const, then this operand is always
+			// placed first in the instrumented callbacks. Such an operand
+			// could not be an argument of our syscalls (because otherwise
+			// it wouldn't be const), thus we simply ignore it.
+			continue
+		}
+		compMap.AddComp(op1, op2)
+	}
+	return compMap, nil
+}
+
+func readUint32(outp *[]byte) (uint32, bool) {
+	out := *outp
+	if len(out) < 4 {
+		return 0, false
+	}
+	v := binary.LittleEndian.Uint32(out)
+	*outp = out[4:]
+	return v, true
+}
+
+func readUint64(outp *[]byte) (uint64, bool) {
+	out := *outp
+	if len(out) < 8 {
+		return 0, false
+	}
+	v := binary.LittleEndian.Uint64(out)
+	*outp = out[8:]
+	return v, true
+}
+
+func readUint32Array(outp *[]byte, size uint32) ([]uint32, bool) {
+	if size == 0 {
+		return nil, true
+	}
+	out := *outp
+	if int(size)*4 > len(out) {
+		return nil, false
+	}
+	hdr := reflect.SliceHeader{
+		Data: uintptr(unsafe.Pointer(&out[0])),
+		Len:  int(size),
+		Cap:  int(size),
+	}
+	res := *(*[]uint32)(unsafe.Pointer(&hdr))
+	*outp = out[size*4:]
+	return res, true
+}
+
+type command struct {
+	pid      int
+	config   *Config
+	timeout  time.Duration
+	cmd      *exec.Cmd
+	dir      string
+	readDone chan []byte
+	exited   chan struct{}
+	inrp     *os.File
+	outwp    *os.File
+	outmem   []byte
+}
+
+const (
+	inMagic  = uint64(0xbadc0ffeebadface)
+	outMagic = uint32(0xbadf00d)
+)
+
+type handshakeReq struct {
+	magic uint64
+	flags uint64 // env flags
+	pid   uint64
+}
+
+type handshakeReply struct {
+	magic uint32
+}
+
+type executeReq struct {
+	magic     uint64
+	envFlags  uint64 // env flags
+	execFlags uint64 // exec flags
+	pid       uint64
+	faultCall uint64
+	faultNth  uint64
+	progSize  uint64
+	// prog follows on pipe or in shmem
+}
+
+type executeReply struct {
+	magic uint32
+	// If done is 0, then this is call completion message followed by callReply.
+	// If done is 1, then program execution is finished and status is set.
+	done   uint32
+	status uint32
+}
+
+type callReply struct {
+	index      uint32 // call index in the program
+	num        uint32 // syscall number (for cross-checking)
+	errno      uint32
+	flags      uint32 // see CallFlags
+	signalSize uint32
+	coverSize  uint32
+	compsSize  uint32
+	// signal/cover/comps follow
+}
+
+func makeCommand(pid int, bin []string, config *Config, inFile, outFile *os.File, outmem []byte,
+	tmpDirPath string) (*command, error) {
+	dir, err := ioutil.TempDir(tmpDirPath, "syzkaller-testdir")
+	if err != nil {
+		return nil, fmt.Errorf("failed to create temp dir: %v", err)
+	}
+	dir = osutil.Abs(dir)
+
+	c := &command{
+		pid:     pid,
+		config:  config,
+		timeout: sanitizeTimeout(config),
+		dir:     dir,
+		outmem:  outmem,
+	}
+	defer func() {
+		if c != nil {
+			c.close()
+		}
+	}()
+
+	if err := os.Chmod(dir, 0777); err != nil {
+		return nil, fmt.Errorf("failed to chmod temp dir: %v", err)
+	}
+
+	// Output capture pipe.
+	rp, wp, err := os.Pipe()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create pipe: %v", err)
+	}
+	defer wp.Close()
+
+	// executor->ipc command pipe.
+	inrp, inwp, err := os.Pipe()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create pipe: %v", err)
+	}
+	defer inwp.Close()
+	c.inrp = inrp
+
+	// ipc->executor command pipe.
+	outrp, outwp, err := os.Pipe()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create pipe: %v", err)
+	}
+	defer outrp.Close()
+	c.outwp = outwp
+
+	c.readDone = make(chan []byte, 1)
+	c.exited = make(chan struct{})
+
+	cmd := osutil.Command(bin[0], bin[1:]...)
+	if inFile != nil && outFile != nil {
+		cmd.ExtraFiles = []*os.File{inFile, outFile}
+	}
+	cmd.Env = []string{}
+	cmd.Dir = dir
+	cmd.Stdin = outrp
+	cmd.Stdout = inwp
+	if config.Flags&FlagDebug != 0 {
+		close(c.readDone)
+		cmd.Stderr = os.Stdout
+	} else {
+		cmd.Stderr = wp
+		go func(c *command) {
+			// Read out output in case executor constantly prints something.
+			const bufSize = 128 << 10
+			output := make([]byte, bufSize)
+			var size uint64
+			for {
+				n, err := rp.Read(output[size:])
+				if n > 0 {
+					size += uint64(n)
+					if size >= bufSize*3/4 {
+						copy(output, output[size-bufSize/2:size])
+						size = bufSize / 2
+					}
+				}
+				if err != nil {
+					rp.Close()
+					c.readDone <- output[:size]
+					close(c.readDone)
+					return
+				}
+			}
+		}(c)
+	}
+	if err := cmd.Start(); err != nil {
+		return nil, fmt.Errorf("failed to start executor binary: %v", err)
+	}
+	c.cmd = cmd
+	wp.Close()
+	// Note: we explicitly close inwp before calling handshake even though we defer it above.
+	// If we don't do it and executor exits before writing handshake reply,
+	// reading from inrp will hang since we hold another end of the pipe open.
+	inwp.Close()
+
+	if c.config.UseForkServer {
+		if err := c.handshake(); err != nil {
+			return nil, err
+		}
+	}
+	tmp := c
+	c = nil // disable defer above
+	return tmp, nil
+}
+
+func (c *command) close() {
+	if c.cmd != nil {
+		c.cmd.Process.Kill()
+		c.wait()
+	}
+	osutil.RemoveAll(c.dir)
+	if c.inrp != nil {
+		c.inrp.Close()
+	}
+	if c.outwp != nil {
+		c.outwp.Close()
+	}
+}
+
+// handshake sends handshakeReq and waits for handshakeReply.
+func (c *command) handshake() error {
+	req := &handshakeReq{
+		magic: inMagic,
+		flags: uint64(c.config.Flags),
+		pid:   uint64(c.pid),
+	}
+	reqData := (*[unsafe.Sizeof(*req)]byte)(unsafe.Pointer(req))[:]
+	if _, err := c.outwp.Write(reqData); err != nil {
+		return c.handshakeError(fmt.Errorf("failed to write control pipe: %v", err))
+	}
+
+	read := make(chan error, 1)
+	go func() {
+		reply := &handshakeReply{}
+		replyData := (*[unsafe.Sizeof(*reply)]byte)(unsafe.Pointer(reply))[:]
+		if _, err := io.ReadFull(c.inrp, replyData); err != nil {
+			read <- err
+			return
+		}
+		if reply.magic != outMagic {
+			read <- fmt.Errorf("bad handshake reply magic 0x%x", reply.magic)
+			return
+		}
+		read <- nil
+	}()
+	// Sandbox setup can take significant time.
+	timeout := time.NewTimer(time.Minute)
+	select {
+	case err := <-read:
+		timeout.Stop()
+		if err != nil {
+			return c.handshakeError(err)
+		}
+		return nil
+	case <-timeout.C:
+		return c.handshakeError(fmt.Errorf("not serving"))
+	}
+}
+
+func (c *command) handshakeError(err error) error {
+	c.cmd.Process.Kill()
+	output := <-c.readDone
+	err = fmt.Errorf("executor %v: %v\n%s", c.pid, err, output)
+	c.wait()
+	return err
+}
+
+func (c *command) wait() error {
+	err := c.cmd.Wait()
+	select {
+	case <-c.exited:
+		// c.exited closed by an earlier call to wait.
+	default:
+		close(c.exited)
+	}
+	return err
+}
+
+func (c *command) exec(opts *ExecOpts, progData []byte) (output []byte, hanged bool, err0 error) {
+	req := &executeReq{
+		magic:     inMagic,
+		envFlags:  uint64(c.config.Flags),
+		execFlags: uint64(opts.Flags),
+		pid:       uint64(c.pid),
+		faultCall: uint64(opts.FaultCall),
+		faultNth:  uint64(opts.FaultNth),
+		progSize:  uint64(len(progData)),
+	}
+	reqData := (*[unsafe.Sizeof(*req)]byte)(unsafe.Pointer(req))[:]
+	if _, err := c.outwp.Write(reqData); err != nil {
+		output = <-c.readDone
+		err0 = fmt.Errorf("executor %v: failed to write control pipe: %v", c.pid, err)
+		return
+	}
+	if progData != nil {
+		if _, err := c.outwp.Write(progData); err != nil {
+			output = <-c.readDone
+			err0 = fmt.Errorf("executor %v: failed to write control pipe: %v", c.pid, err)
+			return
+		}
+	}
+	// At this point program is executing.
+
+	done := make(chan bool)
+	hang := make(chan bool)
+	go func() {
+		t := time.NewTimer(c.timeout)
+		select {
+		case <-t.C:
+			c.cmd.Process.Kill()
+			hang <- true
+		case <-done:
+			t.Stop()
+			hang <- false
+		}
+	}()
+	exitStatus := -1
+	completedCalls := (*uint32)(unsafe.Pointer(&c.outmem[0]))
+	outmem := c.outmem[4:]
+	for {
+		reply := &executeReply{}
+		replyData := (*[unsafe.Sizeof(*reply)]byte)(unsafe.Pointer(reply))[:]
+		if _, err := io.ReadFull(c.inrp, replyData); err != nil {
+			break
+		}
+		if reply.magic != outMagic {
+			fmt.Fprintf(os.Stderr, "executor %v: got bad reply magic 0x%x\n", c.pid, reply.magic)
+			os.Exit(1)
+		}
+		if reply.done != 0 {
+			exitStatus = int(reply.status)
+			break
+		}
+		callReply := &callReply{}
+		callReplyData := (*[unsafe.Sizeof(*callReply)]byte)(unsafe.Pointer(callReply))[:]
+		if _, err := io.ReadFull(c.inrp, callReplyData); err != nil {
+			break
+		}
+		if callReply.signalSize != 0 || callReply.coverSize != 0 || callReply.compsSize != 0 {
+			// This is unsupported yet.
+			fmt.Fprintf(os.Stderr, "executor %v: got call reply with coverage\n", c.pid)
+			os.Exit(1)
+		}
+		copy(outmem, callReplyData)
+		outmem = outmem[len(callReplyData):]
+		*completedCalls++
+	}
+	close(done)
+	if exitStatus == 0 {
+		// Program was OK.
+		<-hang
+		return
+	}
+	c.cmd.Process.Kill()
+	output = <-c.readDone
+	if err := c.wait(); <-hang {
+		hanged = true
+		if err != nil {
+			output = append(output, err.Error()...)
+			output = append(output, '\n')
+		}
+		return
+	}
+	if exitStatus == -1 {
+		exitStatus = osutil.ProcessExitStatus(c.cmd.ProcessState)
+	}
+	// Ignore all other errors.
+	// Without fork server executor can legitimately exit (program contains exit_group),
+	// with fork server the top process can exit with statusFail if it wants special handling.
+	if exitStatus == statusFail {
+		err0 = fmt.Errorf("executor %v: exit status %d\n%s", c.pid, exitStatus, output)
+	}
+	return
+}
+
+func sanitizeTimeout(config *Config) time.Duration {
+	const (
+		executorTimeout = 5 * time.Second
+		minTimeout      = executorTimeout + 2*time.Second
+	)
+	timeout := config.Timeout
+	if timeout == 0 {
+		// Executor protects against most hangs, so we use quite large timeout here.
+		// Executor can be slow due to global locks in namespaces and other things,
+		// so let's better wait than report false misleading crashes.
+		timeout = time.Minute
+		if !config.UseForkServer {
+			// If there is no fork server, executor does not have internal timeout.
+			timeout = executorTimeout
+		}
+	}
+	// IPC timeout must be larger then executor timeout.
+	// Otherwise IPC will kill parent executor but leave child executor alive.
+	if config.UseForkServer && timeout < minTimeout {
+		timeout = minTimeout
+	}
+	return timeout
+}

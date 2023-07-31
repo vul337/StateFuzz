@@ -1,0 +1,2 @@
+resource fd_raw[fd]
+syz_open_dev$dev_raw(dev ptr64[in, string["/dev/raw"]], id intptr, flags flags[open_flags]) fd_raw

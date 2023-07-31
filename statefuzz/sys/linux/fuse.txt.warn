@@ -1,0 +1,3 @@
+no-such-struct: fuse_notify
+no-such-struct: fuse_out
+no-such-struct: fuse_create_open_out

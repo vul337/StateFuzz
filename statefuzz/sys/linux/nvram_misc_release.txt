@@ -1,0 +1,3 @@
+resource fd_nvram[fd]
+syz_open_dev$dev_nvram(dev ptr64[in, string["/dev/nvram"]], id intptr, flags flags[open_flags]) fd_nvram
+close$dev_nvram(fd fd_nvram)

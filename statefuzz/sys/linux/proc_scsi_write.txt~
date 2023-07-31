@@ -1,0 +1,1 @@
+write$dev_scsi_scsi (fd fd_scsi_scsi, buf buffer[in], count len[buf])

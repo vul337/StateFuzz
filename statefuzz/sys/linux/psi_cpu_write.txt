@@ -1,0 +1,1 @@
+write$dev_pressure_cpu(fd fd_pressure_cpu, buf buffer[in], count len[buf])

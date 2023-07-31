@@ -1,0 +1,1 @@
+read$dev_cpu_cpuid(fd fd_cpu_cpuid, buf buffer[out], count len[buf])

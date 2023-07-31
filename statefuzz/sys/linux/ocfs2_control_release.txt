@@ -1,0 +1,3 @@
+resource fd_ocfs2_control[fd]
+syz_open_dev$dev_ocfs2_control(dev ptr64[in, string["/dev/ocfs2_control"]], id intptr, flags flags[open_flags]) fd_ocfs2_control
+close$dev_ocfs2_control(fd fd_ocfs2_control)

@@ -1,0 +1,1 @@
+write$dev_mpc (fd fd_mpc, buf buffer[in], count len[buf])

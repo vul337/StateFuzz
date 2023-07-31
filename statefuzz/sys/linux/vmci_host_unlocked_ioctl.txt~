@@ -1,0 +1,124 @@
+ioctl$dev_vmci_1952_0(fd fd_vmci, cmd const[1952], arg ptr64[in, vmci_init_blk])
+ioctl$dev_vmci_1963_1(fd fd_vmci, cmd const[1963], arg ptr64[in, vmci_datagram_snd_rcv_info])
+ioctl$dev_vmci_1964_2(fd fd_vmci, cmd const[1964], arg ptr64[in, vmci_datagram_snd_rcv_info])
+ioctl$dev_vmci_1960_3(fd fd_vmci, cmd const[1960], arg ptr64[in, vmci_qp_alloc_info])
+ioctl$dev_vmci_1960_4(fd fd_vmci, cmd const[1960], arg ptr64[in, vmci_qp_alloc_info_vmvm])
+ioctl$dev_vmci_1956_5(fd fd_vmci, cmd const[1956], arg ptr64[in, vmci_qp_set_va_info])
+ioctl$dev_vmci_1961_6(fd fd_vmci, cmd const[1961], arg ptr64[in, vmci_qp_page_file_info])
+ioctl$dev_vmci_1962_7(fd fd_vmci, cmd const[1962], arg ptr64[in, vmci_qp_dtch_info])
+ioctl$dev_vmci_1967_8(fd fd_vmci, cmd const[1967], arg ptr64[in, vmci_ctx_info])
+ioctl$dev_vmci_1968_9(fd fd_vmci, cmd const[1968], arg ptr64[in, vmci_ctx_info])
+ioctl$dev_vmci_1969_10(fd fd_vmci, cmd const[1969], arg ptr64[in, vmci_ctx_chkpt_buf_info])
+ioctl$dev_vmci_1970_11(fd fd_vmci, cmd const[1970], arg ptr64[in, vmci_ctx_chkpt_buf_info])
+ioctl$dev_vmci_1971_12(fd fd_vmci, cmd const[1971], arg ptr64[in, int64])
+ioctl$dev_vmci_1971_13(fd fd_vmci, cmd const[1971], arg intptr)
+ioctl$dev_vmci_1995_14(fd fd_vmci, cmd const[1995], arg ptr64[in, vmci_set_notify_info])
+ioctl$dev_vmci_1957_15(fd fd_vmci, cmd const[1957], arg ptr64[in, vmci_dbell_notify_resource_info])
+ioctl$dev_vmci_1958_16(fd fd_vmci, cmd const[1958], arg ptr64[in, vmci_ctx_notify_recv_info])
+ioctl$dev_vmci_1951_17(fd fd_vmci, cmd const[1951], arg ptr64[in, int64])
+ioctl$dev_vmci_1951_18(fd fd_vmci, cmd const[1951], arg intptr)
+ioctl$dev_vmci_1959_19(fd fd_vmci, cmd const[1959], arg ptr64[in, int64])
+ioctl$dev_vmci_1959_20(fd fd_vmci, cmd const[1959], arg intptr)
+vmci_ctx_notify_recv_info {
+	element_0	int64
+	element_1	int64
+	element_2	int64
+	element_3	int64
+	element_4	int32
+	element_5	int32
+}
+
+vmci_qp_alloc_info {
+	element_0	vmci_handle
+	element_1	int32
+	element_2	int32
+	element_3	int64
+	element_4	int64
+	element_5	int64
+	element_6	int64
+	element_7	int32
+	element_8	int32
+}
+
+vmci_qp_set_va_info {
+	element_0	vmci_handle
+	element_1	int64
+	element_2	int64
+	element_3	int32
+	element_4	int32
+}
+
+vmci_init_blk {
+	element_0	int32
+	element_1	int32
+}
+
+vmci_qp_alloc_info_vmvm {
+	element_0	vmci_handle
+	element_1	int32
+	element_2	int32
+	element_3	int64
+	element_4	int64
+	element_5	int64
+	element_6	int64
+	element_7	int64
+	element_8	int64
+	element_9	int32
+	element_10	int32
+}
+
+vmci_qp_dtch_info {
+	element_0	vmci_handle
+	element_1	int32
+	element_2	int32
+}
+
+vmci_ctx_info {
+	element_0	int32
+	element_1	int32
+}
+
+vmci_set_notify_info {
+	element_0	int64
+	element_1	int32
+	element_2	int32
+}
+
+vmci_dbell_notify_resource_info {
+	element_0	vmci_handle
+	element_1	int16
+	element_2	int16
+	element_3	int32
+}
+
+vmci_datagram_snd_rcv_info {
+	element_0	int64
+	element_1	int32
+	element_2	int32
+}
+
+vmci_ctx_chkpt_buf_info {
+	element_0	int64
+	element_1	int32
+	element_2	int32
+	element_3	int32
+	element_4	int32
+}
+
+vmci_qp_page_file_info {
+	element_0	vmci_handle
+	element_1	int64
+	element_2	int64
+	element_3	int64
+	element_4	int64
+	element_5	int32
+	element_6	int32
+	element_7	int64
+	element_8	int64
+}
+
+vmci_handle {
+	element_0	int32
+	element_1	int32
+}
+

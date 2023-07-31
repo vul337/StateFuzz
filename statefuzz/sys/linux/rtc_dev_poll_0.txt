@@ -1,0 +1,2 @@
+syz_open_dev$dev_rtc(dev ptr64[in, string["/dev/rtc"]], id intptr, flags flags[open_flags]) fd_rtc
+close$dev_rtc(fd fd_rtc)

@@ -1,0 +1,3 @@
+resource fd_sysrq_trigger[fd]
+syz_open_dev$dev_sysrq_trigger(dev ptr64[in, string["/dev/sysrq-trigger"]], id intptr, flags flags[open_flags]) fd_sysrq_trigger
+write$dev_sysrq_trigger (fd fd_sysrq_trigger, buf buffer[in], count len[buf])

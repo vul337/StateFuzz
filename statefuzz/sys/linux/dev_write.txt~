@@ -1,0 +1,1 @@
+write$dev_dlm_plock (fd fd_dlm_plock, buf buffer[in], count len[buf])

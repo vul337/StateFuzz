@@ -1,0 +1,3 @@
+resource fd_tty[fd]
+syz_open_dev$dev_tty(dev ptr64[in, string["/dev/tty"]], id intptr, flags flags[open_flags]) fd_tty
+write$dev_tty (fd fd_tty, buf buffer[in], count len[buf])

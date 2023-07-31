@@ -1,0 +1,3 @@
+resource fd_net_tun[fd]
+syz_open_dev$dev_net_tun(dev ptr64[in, string["/dev/net/tun"]], id intptr, flags flags[open_flags]) fd_net_tun
+close$dev_net_tun(fd fd_net_tun)

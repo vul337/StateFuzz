@@ -1,0 +1,4 @@
+resource fd_vga_arbiter[fd]
+syz_open_dev$dev_vga_arbiter(dev ptr64[in, string["/dev/vga_arbiter"]], id intptr, flags flags[open_flags]) fd_vga_arbiter
+close$dev_vga_arbiter(fd fd_vga_arbiter)
+read$dev_vga_arbiter(fd fd_vga_arbiter, buf buffer[out], count len[buf])

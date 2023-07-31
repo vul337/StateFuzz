@@ -1,0 +1,3 @@
+resource fd_uhid[fd]
+syz_open_dev$dev_uhid(dev ptr64[in, string["/dev/uhid"]], id intptr, flags flags[open_flags]) fd_uhid
+write$dev_uhid (fd fd_uhid, buf buffer[in], count len[buf])

@@ -1,0 +1,39 @@
+ioctl$dev_pps0_2148036769_0(fd fd_pps0, cmd const[2148036769], arg ptr64[in, int64])
+ioctl$dev_pps0_2148036769_1(fd fd_pps0, cmd const[2148036769], arg intptr)
+ioctl$dev_pps0_1074294946_2(fd fd_pps0, cmd const[1074294946], arg ptr64[in, pps_kparams])
+ioctl$dev_pps0_2148036771_3(fd fd_pps0, cmd const[2148036771], arg ptr64[in, int64])
+ioctl$dev_pps0_2148036771_4(fd fd_pps0, cmd const[2148036771], arg intptr)
+ioctl$dev_pps0_3221778596_5(fd fd_pps0, cmd const[3221778596], arg ptr64[in, pps_fdata])
+ioctl$dev_pps0_1074294949_6(fd fd_pps0, cmd const[1074294949], arg ptr64[in, pps_bind_args])
+
+pps_kparams {
+	element_0	int32
+	element_1	int32
+	element_2	pps_ktime
+	element_3	pps_ktime
+}
+
+pps_bind_args {
+	element_0	int32
+	element_1	int32
+	element_2	int32
+}
+
+pps_kinfo {
+	element_0	int32
+	element_1	int32
+	element_2	pps_ktime
+	element_3	pps_ktime
+	element_4	int32
+}
+
+pps_fdata {
+	element_0	pps_kinfo
+	element_1	pps_ktime
+}
+
+pps_ktime {
+	element_0	int64
+	element_1	int32
+	element_2	int32
+}

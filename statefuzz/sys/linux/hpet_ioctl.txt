@@ -1,0 +1,15 @@
+resource fd_hpet[fd]
+syz_open_dev$dev_hpet(dev ptr64[in, string["/dev/hpet"]], id intptr, flags flags[open_flags]) fd_hpet
+close$dev_hpet(fd fd_hpet)
+ioctl$dev_hpet_26626_0(fd fd_hpet, cmd const[26626], arg ptr64[in, int64])
+ioctl$dev_hpet_26626_1(fd fd_hpet, cmd const[26626], arg intptr)
+ioctl$dev_hpet_2149083139_2(fd fd_hpet, cmd const[2149083139], arg ptr64[in, int64])
+ioctl$dev_hpet_2149083139_3(fd fd_hpet, cmd const[2149083139], arg intptr)
+ioctl$dev_hpet_26628_4(fd fd_hpet, cmd const[26628], arg ptr64[in, int64])
+ioctl$dev_hpet_26628_5(fd fd_hpet, cmd const[26628], arg intptr)
+ioctl$dev_hpet_26629_6(fd fd_hpet, cmd const[26629], arg ptr64[in, int64])
+ioctl$dev_hpet_26629_7(fd fd_hpet, cmd const[26629], arg intptr)
+ioctl$dev_hpet_1074292742_8(fd fd_hpet, cmd const[1074292742], arg ptr64[in, int64])
+ioctl$dev_hpet_1074292742_9(fd fd_hpet, cmd const[1074292742], arg intptr)
+ioctl$dev_hpet_26625_10(fd fd_hpet, cmd const[26625], arg ptr64[in, int64])
+ioctl$dev_hpet_26625_11(fd fd_hpet, cmd const[26625], arg intptr)

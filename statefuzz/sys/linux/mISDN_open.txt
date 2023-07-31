@@ -1,0 +1,3 @@
+resource fd_mISDNtimer[fd]
+syz_open_dev$dev_mISDNtimer(dev ptr64[in, string["/dev/mISDNtimer"]], id intptr, flags flags[open_flags]) fd_mISDNtimer
+close$dev_mISDNtimer(fd fd_mISDNtimer)

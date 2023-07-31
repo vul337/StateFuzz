@@ -1,0 +1,1 @@
+read$dev_vmcore(fd fd_vmcore, buf buffer[out], count len[buf])

@@ -1,0 +1,4 @@
+resource fd_admmidi[fd]
+syz_open_dev$dev_admmidi(dev ptr64[in, string["/dev/admmidi"]], id intptr, flags flags[open_flags]) fd_admmidi
+close$dev_admmidi(fd fd_admmidi)
+write$dev_admmidi (fd fd_admmidi, buf buffer[in], count len[buf])

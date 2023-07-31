@@ -1,0 +1,1 @@
+write$dev_irq_prof_cpu_mask(fd fd_irq_prof_cpu_mask, buf buffer[in], count len[buf])

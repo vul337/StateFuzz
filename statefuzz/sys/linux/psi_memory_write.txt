@@ -1,0 +1,4 @@
+resource fd_pressure_memory[fd]
+syz_open_dev$dev_pressure_memory(dev ptr64[in, string["/dev/pressure/memory"]], id intptr, flags flags[open_flags]) fd_pressure_memory
+close$dev_pressure_memory(fd fd_pressure_memory)
+write$dev_pressure_memory(fd fd_pressure_memory, buf buffer[in], count len[buf])

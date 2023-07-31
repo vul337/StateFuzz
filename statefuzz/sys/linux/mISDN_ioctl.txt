@@ -1,0 +1,4 @@
+ioctl$dev_mISDNtimer_2147764544_0(fd fd_mISDNtimer, cmd const[2147764544], arg ptr64[in, int64])
+ioctl$dev_mISDNtimer_2147764544_1(fd fd_mISDNtimer, cmd const[2147764544], arg intptr)
+ioctl$dev_mISDNtimer_2147764545_2(fd fd_mISDNtimer, cmd const[2147764545], arg ptr64[in, int64])
+ioctl$dev_mISDNtimer_2147764545_3(fd fd_mISDNtimer, cmd const[2147764545], arg intptr)

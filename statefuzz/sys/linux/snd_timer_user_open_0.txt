@@ -1,0 +1,3 @@
+resource fd_snd_timer[fd]
+syz_open_dev$dev_snd_timer(dev ptr64[in, string["/dev/snd/timer"]], id intptr, flags flags[open_flags]) fd_snd_timer
+close$dev_snd_timer(fd fd_snd_timer)

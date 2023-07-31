@@ -1,0 +1,1 @@
+read$dev_fuse(fd fd_fuse, buf buffer[out], count len[buf])

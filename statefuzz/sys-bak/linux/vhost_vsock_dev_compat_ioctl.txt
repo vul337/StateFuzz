@@ -1,0 +1,7 @@
+resource fd_vhost_vsock[fd]
+syz_open_dev$dev_vhost_vsock(dev ptr64[in, string["/dev/vhost-vsock"]], id intptr, flags flags[open_flags]) fd_vhost_vsock
+ioctl$dev_vhost_vsock_1074311008_0(fd fd_vhost_vsock, cmd const[1074311008], arg ptr64[in, int64])
+ioctl$dev_vhost_vsock_1074048865_1(fd fd_vhost_vsock, cmd const[1074048865], arg ptr64[in, int32])
+ioctl$dev_vhost_vsock_2148052736_2(fd fd_vhost_vsock, cmd const[2148052736], arg ptr64[in, int64])
+ioctl$dev_vhost_vsock_2148052736_3(fd fd_vhost_vsock, cmd const[2148052736], arg intptr)
+ioctl$dev_vhost_vsock_1074310912_4(fd fd_vhost_vsock, cmd const[1074310912], arg ptr64[in, int64])

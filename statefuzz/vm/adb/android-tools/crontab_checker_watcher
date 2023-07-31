@@ -1,0 +1,31 @@
+echo "* * * * * [ `ps -ef | grep -v grep | grep syzkaller-watcher | wc -l` -eq 0 ] && cd /data && bash -c \"nohup /data/syzkaller-watcher.sh 2>/dev/null 1>/dev/null&\"" >> /data/crontab/root
+
+# 华为手机里没有/system的挂载点，所以网上很多的remount rw方案都用不了
+# 直接adb remount
+# in host:
+adb remount
+# in adb shell
+echo 'root:x:0:0:root:/data:/system/bin/sh' > /system/etc/passwd
+ln -s /system/bin /bin
+cp /system/bin/sh /system/bin/bash
+busybox crond -f -d0 -c /data/crontab/
+# 添加crontab自启动
+# echo 'crond -f -d0 -c /data/crontab/' > 自启动文件
+# chmod +x 自启动文件
+# 这里在/system/etc/init/里添加一个crond.rc
+service crond /vendor/bin/busybox crond -f -d0 -c /data/crontab/
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:sudaemon:s0
+
+on property:sys.boot_completed=1 && property:sys.logbootcomplete=1
+    start crond
+ 
+
+
+
+#references
+https://stackoverflow.com/questions/16747880/how-to-use-crontab-in-android
+https://h4des.org/blog/index.php?/archives/359-Android-LineageOS-16-Execute-Script-on-Start-Up.html
