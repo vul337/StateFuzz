@@ -1,0 +1,1 @@
+read$dev_nvram(fd fd_nvram, buf buffer[out], count len[buf])

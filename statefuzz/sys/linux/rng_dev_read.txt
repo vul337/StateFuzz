@@ -1,0 +1,1 @@
+read$dev_hw_random(fd fd_hw_random, buf buffer[out], count len[buf])

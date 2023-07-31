@@ -1,0 +1,4 @@
+resource fd_mtrr[fd]
+syz_open_dev$dev_mtrr(dev ptr64[in, string["/dev/mtrr"]], id intptr, flags flags[open_flags]) fd_mtrr
+close$dev_mtrr(fd fd_mtrr)
+write$dev_mtrr(fd fd_mtrr, buf buffer[in], count len[buf])

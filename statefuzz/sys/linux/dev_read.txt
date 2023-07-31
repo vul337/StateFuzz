@@ -1,0 +1,4 @@
+resource fd_dlm_plock[fd]
+syz_open_dev$dev_dlm_plock(dev ptr64[in, string["/dev/dlm_plock"]], id intptr, flags flags[open_flags]) fd_dlm_plock
+close$dev_dlm_plock(fd fd_dlm_plock)
+read$dev_dlm_plock(fd fd_dlm_plock, buf buffer[out], count len[buf])

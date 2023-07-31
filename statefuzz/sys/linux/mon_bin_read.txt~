@@ -1,0 +1,1 @@
+read$dev_usbmon (fd fd_usbmon, buf buffer[out], count len[buf])

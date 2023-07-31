@@ -1,0 +1,3 @@
+resource fd_irq_default_smp_affinity[fd]
+syz_open_dev$dev_irq_default_smp_affinity(dev ptr64[in, string["/dev/irq/default_smp_affinity"]], id intptr, flags flags[open_flags]) fd_irq_default_smp_affinity
+close$dev_irq_default_smp_affinity(fd fd_irq_default_smp_affinity)

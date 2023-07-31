@@ -1,0 +1,7 @@
+no-such-struct: rdma_ucm_cmd_t
+no-such-struct: rdma_ucm_create_mcast_id_resp
+no-such-struct: rdma_ucm_leave_mcast
+bad-field-number: rdma_ucm_event_resp: syz=2 kernel=6
+bad-field-size: rdma_ucm_event_resp.id: syz=8 kernel=4
+no-such-struct: rdma_ucm_set_option_t
+no-such-struct: sockaddr_rdma_cm

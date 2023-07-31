@@ -1,0 +1,3 @@
+resource fd_swaps[fd]
+syz_open_dev$dev_swaps(dev ptr64[in, string["/dev/swaps"]], id intptr, flags flags[open_flags]) fd_swaps
+close$dev_swaps(fd fd_swaps)

@@ -1,0 +1,4 @@
+ioctl$dev_nvram_28736_0(fd fd_nvram, cmd const[28736], arg ptr64[in, int64])
+ioctl$dev_nvram_28736_1(fd fd_nvram, cmd const[28736], arg intptr)
+ioctl$dev_nvram_28737_2(fd fd_nvram, cmd const[28737], arg ptr64[in, int64])
+ioctl$dev_nvram_28737_3(fd fd_nvram, cmd const[28737], arg intptr)

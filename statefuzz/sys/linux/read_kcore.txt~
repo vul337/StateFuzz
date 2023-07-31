@@ -1,0 +1,1 @@
+read$dev_kcore (fd fd_kcore, buf buffer[out], count len[buf])

@@ -1,0 +1,1 @@
+write$dev_net_tun (fd fd_net_tun, buf buffer[in], count len[buf])

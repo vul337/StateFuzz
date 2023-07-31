@@ -1,0 +1,4 @@
+resource fd_bus_usb_001_001[fd]
+syz_open_dev$dev_bus_usb_001_001(dev ptr64[in, string["/dev/bus/usb/001/001"]], id intptr, flags flags[open_flags]) fd_bus_usb_001_001
+close$dev_bus_usb_001_001(fd fd_bus_usb_001_001)
+read$dev_bus_usb_001_001(fd fd_bus_usb_001_001, buf buffer[out], count len[buf])

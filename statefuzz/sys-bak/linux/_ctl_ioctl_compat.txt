@@ -1,0 +1,155 @@
+resource fd_mpt3ctl[fd]
+syz_open_dev$dev_mpt3ctl(dev ptr64[in, string["/dev/mpt3ctl"]], id intptr, flags flags[open_flags]) fd_mpt3ctl
+ioctl$dev_mpt3ctl_3227274257_0(fd fd_mpt3ctl, cmd const[3227274257], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_92_1(fd fd_mpt3ctl, cmd const[92], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_3224914964_2(fd fd_mpt3ctl, cmd const[3224914964], arg ptr64[in, mpt3_ioctl_command])
+ioctl$dev_mpt3ctl_56_3(fd fd_mpt3ctl, cmd const[56], arg ptr64[in, mpt3_ioctl_command32])
+ioctl$dev_mpt3ctl_72_4(fd fd_mpt3ctl, cmd const[72], arg ptr64[in, _MPI2_REQUEST_HEADER])
+ioctl$dev_mpt3ctl_72_5(fd fd_mpt3ctl, cmd const[72], arg ptr64[in, mpt3_ioctl_command])
+ioctl$dev_mpt3ctl_3225963540_6(fd fd_mpt3ctl, cmd const[3225963540], arg ptr64[in, mpt3_ioctl_command])
+ioctl$dev_mpt3ctl_3223342101_7(fd fd_mpt3ctl, cmd const[3223342101], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_32_8(fd fd_mpt3ctl, cmd const[32], arg ptr64[in, mpt3_ioctl_eventquery])
+ioctl$dev_mpt3ctl_3223079958_9(fd fd_mpt3ctl, cmd const[3223079958], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_28_10(fd fd_mpt3ctl, cmd const[28], arg ptr64[in, mpt3_ioctl_eventenable])
+ioctl$dev_mpt3ctl_3235138583_11(fd fd_mpt3ctl, cmd const[3235138583], arg ptr64[in, mpt3_ioctl_eventreport])
+ioctl$dev_mpt3ctl_3222031384_12(fd fd_mpt3ctl, cmd const[3222031384], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_12_13(fd fd_mpt3ctl, cmd const[12], arg ptr64[in, mpt3_ioctl_diag_reset])
+ioctl$dev_mpt3ctl_3222817823_14(fd fd_mpt3ctl, cmd const[3222817823], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_24_15(fd fd_mpt3ctl, cmd const[24], arg ptr64[in, mpt3_ioctl_btdh_mapping])
+ioctl$dev_mpt3ctl_3229109274_16(fd fd_mpt3ctl, cmd const[3229109274], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_120_17(fd fd_mpt3ctl, cmd const[120], arg ptr64[in, mpt3_diag_register])
+ioctl$dev_mpt3ctl_3222293532_18(fd fd_mpt3ctl, cmd const[3222293532], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_16_19(fd fd_mpt3ctl, cmd const[16], arg ptr64[in, mpt3_diag_unregister])
+ioctl$dev_mpt3ctl_3229371421_20(fd fd_mpt3ctl, cmd const[3229371421], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_124_21(fd fd_mpt3ctl, cmd const[124], arg ptr64[in, mpt3_diag_query])
+ioctl$dev_mpt3ctl_3222293531_22(fd fd_mpt3ctl, cmd const[3222293531], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_16_23(fd fd_mpt3ctl, cmd const[16], arg ptr64[in, mpt3_diag_release])
+ioctl$dev_mpt3ctl_3223342110_24(fd fd_mpt3ctl, cmd const[3223342110], arg ptr64[in, mpt3_ioctl_header])
+ioctl$dev_mpt3ctl_32_25(fd fd_mpt3ctl, cmd const[32], arg ptr64[in, mpt3_diag_read_buffer])
+mpt3_ioctl_eventquery {
+	element_0	mpt3_ioctl_header
+	element_1	int16
+	element_2	int16
+	element_3	array[int32, 4]
+}
+
+_MPI2_REQUEST_HEADER {
+	element_0	int16
+	element_1	int8
+	element_2	int8
+	element_3	int16
+	element_4	int8
+	element_5	int8
+	element_6	int8
+	element_7	int8
+	element_8	int16
+}
+
+mpt3_ioctl_btdh_mapping {
+	element_0	mpt3_ioctl_header
+	element_1	int32
+	element_2	int32
+	element_3	int16
+	element_4	int16
+}
+
+mpt3_diag_query {
+	element_0	mpt3_ioctl_header
+	element_1	int8
+	element_2	int8
+	element_3	int16
+	element_4	int32
+	element_5	array[int32, 23]
+	element_6	int32
+	element_7	int32
+	element_8	int32
+}
+
+mpt3_ioctl_command {
+	element_0	mpt3_ioctl_header
+	element_1	int32
+	element_2	ptr64[in, int8]
+	element_3	ptr64[in, int8]
+	element_4	ptr64[in, int8]
+	element_5	ptr64[in, int8]
+	element_6	int32
+	element_7	int32
+	element_8	int32
+	element_9	int32
+	element_10	int32
+	element_11	array[int8, 1]
+}
+
+MPT3_IOCTL_EVENTS {
+	element_0	int32
+	element_1	int32
+	element_2	array[int8, 192]
+}
+
+mpt3_ioctl_eventenable {
+	element_0	mpt3_ioctl_header
+	element_1	array[int32, 4]
+}
+
+mpt3_ioctl_diag_reset {
+	element_0	mpt3_ioctl_header
+}
+
+mpt3_ioctl_header {
+	element_0	int32
+	element_1	int32
+	element_2	int32
+}
+
+mpt3_diag_read_buffer {
+	element_0	mpt3_ioctl_header
+	element_1	int8
+	element_2	int8
+	element_3	int16
+	element_4	int32
+	element_5	int32
+	element_6	int32
+	element_7	array[int32, 1]
+}
+
+mpt3_diag_unregister {
+	element_0	mpt3_ioctl_header
+	element_1	int32
+}
+
+mpt3_ioctl_command32 {
+	element_0	mpt3_ioctl_header
+	element_1	int32
+	element_2	int32
+	element_3	int32
+	element_4	int32
+	element_5	int32
+	element_6	int32
+	element_7	int32
+	element_8	int32
+	element_9	int32
+	element_10	int32
+	element_11	array[int8, 1]
+}
+
+mpt3_diag_register {
+	element_0	mpt3_ioctl_header
+	element_1	int8
+	element_2	int8
+	element_3	int16
+	element_4	int32
+	element_5	array[int32, 23]
+	element_6	int32
+	element_7	int32
+}
+
+mpt3_diag_release {
+	element_0	mpt3_ioctl_header
+	element_1	int32
+}
+
+mpt3_ioctl_eventreport {
+	element_0	mpt3_ioctl_header
+	element_1	array[MPT3_IOCTL_EVENTS, 1]
+}
+

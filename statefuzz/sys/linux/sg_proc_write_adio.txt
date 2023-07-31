@@ -1,0 +1,1 @@
+write$dev_allow_dio(fd fd_allow_dio, buf buffer[in], count len[buf])

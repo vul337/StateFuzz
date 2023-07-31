@@ -1,0 +1,29 @@
+resource fd_autofs[fd]
+syz_open_dev$dev_autofs(dev ptr64[in, string["/dev/autofs"]], id intptr, flags flags[open_flags]) fd_autofs
+close$dev_autofs(fd fd_autofs)
+ioctl$dev_autofs_147_0(fd fd_autofs, cmd const[147], arg ptr64[in, int64])
+ioctl$dev_autofs_147_1(fd fd_autofs, cmd const[147], arg intptr)
+ioctl$dev_autofs_113_2(fd fd_autofs, cmd const[113], arg ptr64[in, int64])
+ioctl$dev_autofs_113_3(fd fd_autofs, cmd const[113], arg intptr)
+ioctl$dev_autofs_126_4(fd fd_autofs, cmd const[126], arg ptr64[in, autofs_dev_ioctl])
+ioctl$dev_autofs_116_5(fd fd_autofs, cmd const[116], arg ptr64[in, autofs_dev_ioctl])
+ioctl$dev_autofs_123_6(fd fd_autofs, cmd const[123], arg ptr64[in, autofs_dev_ioctl])
+ioctl$dev_autofs_113_7(fd fd_autofs, cmd const[113], arg ptr64[in, autofs_dev_ioctl])
+ioctl$dev_autofs_117_8(fd fd_autofs, cmd const[117], arg ptr64[in, autofs_dev_ioctl])
+ioctl$dev_autofs_121_9(fd fd_autofs, cmd const[121], arg ptr64[in, autofs_dev_ioctl])
+union_anon_83 {
+	element_0	args_timeout
+}
+
+autofs_dev_ioctl {
+	element_0	int32
+	element_1	int32
+	element_2	int32
+	element_3	int32
+	element_4	union_anon_83
+}
+
+args_timeout {
+	element_0	int64
+}
+

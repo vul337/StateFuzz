@@ -1,0 +1,1 @@
+read$dev_vhci (fd fd_vhci, buf buffer[out], count len[buf])

@@ -1,0 +1,36 @@
+ioctl$dev_mtrr_1074810112_0(fd fd_mtrr, cmd const[1074810112], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_3222818051_1(fd fd_mtrr, cmd const[3222818051], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_3222818056_2(fd fd_mtrr, cmd const[3222818056], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_3222293763_3(fd fd_mtrr, cmd const[3222293763], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_3222293768_4(fd fd_mtrr, cmd const[3222293768], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074547968_5(fd fd_mtrr, cmd const[1074547968], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074810113_6(fd fd_mtrr, cmd const[1074810113], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074547969_7(fd fd_mtrr, cmd const[1074547969], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074810114_8(fd fd_mtrr, cmd const[1074810114], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074547970_9(fd fd_mtrr, cmd const[1074547970], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074810116_10(fd fd_mtrr, cmd const[1074810116], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074547972_11(fd fd_mtrr, cmd const[1074547972], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074810117_12(fd fd_mtrr, cmd const[1074810117], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074547973_13(fd fd_mtrr, cmd const[1074547973], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074810118_14(fd fd_mtrr, cmd const[1074810118], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074547974_15(fd fd_mtrr, cmd const[1074547974], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074810119_16(fd fd_mtrr, cmd const[1074810119], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074547975_17(fd fd_mtrr, cmd const[1074547975], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074810121_18(fd fd_mtrr, cmd const[1074810121], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_1074547977_19(fd fd_mtrr, cmd const[1074547977], arg ptr64[in, mtrr_sentry])
+ioctl$dev_mtrr_3222818051_20(fd fd_mtrr, cmd const[3222818051], arg ptr64[in, mtrr_gentry])
+ioctl$dev_mtrr_3222818056_21(fd fd_mtrr, cmd const[3222818056], arg ptr64[in, mtrr_gentry])
+mtrr_gentry {
+	element_0	int64
+	element_1	int32
+	element_2	int32
+	element_3	int32
+	element_4	int32
+}
+
+mtrr_sentry {
+	element_0	int64
+	element_1	int32
+	element_2	int32
+}
+

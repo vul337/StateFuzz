@@ -1,0 +1,3 @@
+resource fd_comedi[fd]
+syz_open_dev$dev_comedi(dev ptr64[in, string["/dev/comedi"]], id intptr, flags flags[open_flags]) fd_comedi
+close$dev_comedi(fd fd_comedi)

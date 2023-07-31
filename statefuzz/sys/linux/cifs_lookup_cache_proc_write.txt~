@@ -1,0 +1,1 @@
+write$dev_LookupCacheEnabled (fd fd_LookupCacheEnabled, buf buffer[in], count len[buf])

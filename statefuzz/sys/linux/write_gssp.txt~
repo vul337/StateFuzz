@@ -1,0 +1,4 @@
+resource fd_use_gss_proxy[fd]
+syz_open_dev$dev_use_gss_proxy(dev ptr64[in, string["/dev/use-gss-proxy"]], id intptr, flags flags[open_flags]) fd_use_gss_proxy
+close$dev_use_gss_proxy(fd fd_use_gss_proxy)
+write$dev_use_gss_proxy (fd fd_use_gss_proxy, buf buffer[in], count len[buf])

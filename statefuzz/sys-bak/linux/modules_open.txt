@@ -1,0 +1,2 @@
+resource fd_modules[fd]
+syz_open_dev$dev_modules(dev ptr64[in, string["/dev/modules"]], id intptr, flags flags[open_flags]) fd_modules

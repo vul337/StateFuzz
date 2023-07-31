@@ -1,0 +1,8 @@
+ioctl$dev_bus_usb_001_001_1074287884_0(fd fd_bus_usb_001_001, cmd const[1074287884], arg ptr64[in, int64])
+ioctl$dev_bus_usb_001_001_1074287884_1(fd fd_bus_usb_001_001, cmd const[1074287884], arg intptr)
+ioctl$dev_bus_usb_001_001_1074287885_2(fd fd_bus_usb_001_001, cmd const[1074287885], arg ptr64[in, int64])
+ioctl$dev_bus_usb_001_001_1074287885_3(fd fd_bus_usb_001_001, cmd const[1074287885], arg intptr)
+ioctl$dev_bus_usb_001_001_1074025740_4(fd fd_bus_usb_001_001, cmd const[1074025740], arg ptr64[in, int64])
+ioctl$dev_bus_usb_001_001_1074025740_5(fd fd_bus_usb_001_001, cmd const[1074025740], arg intptr)
+ioctl$dev_bus_usb_001_001_1074025741_6(fd fd_bus_usb_001_001, cmd const[1074025741], arg ptr64[in, int64])
+ioctl$dev_bus_usb_001_001_1074025741_7(fd fd_bus_usb_001_001, cmd const[1074025741], arg intptr)

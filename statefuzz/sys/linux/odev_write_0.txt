@@ -1,0 +1,1 @@
+write$dev_sequencer2(fd fd_sequencer2, buf buffer[in], count len[buf])

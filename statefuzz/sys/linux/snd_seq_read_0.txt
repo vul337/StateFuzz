@@ -1,0 +1,1 @@
+read$dev_snd_seq(fd fd_snd_seq, buf buffer[out], count len[buf])

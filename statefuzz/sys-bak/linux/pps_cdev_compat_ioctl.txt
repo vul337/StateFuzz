@@ -1,0 +1,22 @@
+ioctl$dev_pps0_3221778596_0(fd fd_pps0, cmd const[3221778596], arg ptr64[in, pps_fdata_compat])
+ioctl$dev_pps0_2148036769_1(fd fd_pps0, cmd const[2148036769], arg ptr64[in, pps_fdata_compat])
+ioctl$dev_pps0_2148036771_2(fd fd_pps0, cmd const[2148036771], arg ptr64[in, pps_fdata_compat])
+pps_fdata_compat {
+	element_0	pps_kinfo_compat
+	element_1	pps_ktime_compat
+} [packed]
+
+pps_ktime_compat {
+	element_0	int64
+	element_1	int32
+	element_2	int32
+}
+
+pps_kinfo_compat {
+	element_0	int32
+	element_1	int32
+	element_2	pps_ktime_compat
+	element_3	pps_ktime_compat
+	element_4	int32
+} [packed]
+

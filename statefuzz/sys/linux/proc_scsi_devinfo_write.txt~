@@ -1,0 +1,1 @@
+write$dev_scsi_device_info (fd fd_scsi_device_info, buf buffer[in], count len[buf])

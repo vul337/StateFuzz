@@ -1,0 +1,3 @@
+syz_open_dev$dev_uinput(dev ptr64[in, string["/dev/uinput"]], id intptr, flags flags[open_flags]) fd_uinput
+close$dev_uinput(fd fd_uinput)
+write$dev_uinput (fd fd_uinput, buf buffer[in], count len[buf])

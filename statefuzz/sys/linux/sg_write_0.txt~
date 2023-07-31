@@ -1,0 +1,1 @@
+write$dev_sg0 (fd fd_sg0, buf buffer[in], count len[buf])

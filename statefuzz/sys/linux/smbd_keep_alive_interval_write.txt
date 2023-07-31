@@ -1,0 +1,1 @@
+write$dev_smbd_keep_alive_interval(fd fd_smbd_keep_alive_interval, buf buffer[in], count len[buf])

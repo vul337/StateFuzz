@@ -1,0 +1,1 @@
+read$dev_kmsg (fd fd_kmsg, buf buffer[out], count len[buf])

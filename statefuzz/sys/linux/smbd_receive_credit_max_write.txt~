@@ -1,0 +1,4 @@
+resource fd_smbd_receive_credit_max[fd]
+syz_open_dev$dev_smbd_receive_credit_max(dev ptr64[in, string["/dev/smbd_receive_credit_max"]], id intptr, flags flags[open_flags]) fd_smbd_receive_credit_max
+close$dev_smbd_receive_credit_max(fd fd_smbd_receive_credit_max)
+write$dev_smbd_receive_credit_max (fd fd_smbd_receive_credit_max, buf buffer[in], count len[buf])

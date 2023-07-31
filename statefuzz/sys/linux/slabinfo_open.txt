@@ -1,0 +1,3 @@
+resource fd_slabinfo[fd]
+syz_open_dev$dev_slabinfo(dev ptr64[in, string["/dev/slabinfo"]], id intptr, flags flags[open_flags]) fd_slabinfo
+close$dev_slabinfo(fd fd_slabinfo)

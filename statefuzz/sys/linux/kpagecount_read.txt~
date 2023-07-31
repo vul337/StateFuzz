@@ -1,0 +1,4 @@
+resource fd_kpagecount[fd]
+syz_open_dev$dev_kpagecount(dev ptr64[in, string["/dev/kpagecount"]], id intptr, flags flags[open_flags]) fd_kpagecount
+close$dev_kpagecount(fd fd_kpagecount)
+read$dev_kpagecount (fd fd_kpagecount, buf buffer[out], count len[buf])

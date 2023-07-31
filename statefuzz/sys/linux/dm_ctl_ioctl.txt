@@ -1,0 +1,64 @@
+resource fd_device_mapper[fd]
+syz_open_dev$dev_device_mapper(dev ptr64[in, string["/dev/device-mapper"]], id intptr, flags flags[open_flags]) fd_device_mapper
+close$dev_device_mapper(fd fd_device_mapper)
+ioctl$dev_device_mapper_1_0(fd fd_device_mapper, cmd const[1], arg ptr64[in, int64])
+ioctl$dev_device_mapper_1_1(fd fd_device_mapper, cmd const[1], arg intptr)
+ioctl$dev_device_mapper_2_2(fd fd_device_mapper, cmd const[2], arg ptr64[in, int64])
+ioctl$dev_device_mapper_2_3(fd fd_device_mapper, cmd const[2], arg intptr)
+ioctl$dev_device_mapper_3_4(fd fd_device_mapper, cmd const[3], arg ptr64[in, int64])
+ioctl$dev_device_mapper_3_5(fd fd_device_mapper, cmd const[3], arg intptr)
+ioctl$dev_device_mapper_4_6(fd fd_device_mapper, cmd const[4], arg ptr64[in, int64])
+ioctl$dev_device_mapper_4_7(fd fd_device_mapper, cmd const[4], arg intptr)
+ioctl$dev_device_mapper_5_8(fd fd_device_mapper, cmd const[5], arg ptr64[in, int64])
+ioctl$dev_device_mapper_5_9(fd fd_device_mapper, cmd const[5], arg intptr)
+ioctl$dev_device_mapper_6_10(fd fd_device_mapper, cmd const[6], arg ptr64[in, int64])
+ioctl$dev_device_mapper_6_11(fd fd_device_mapper, cmd const[6], arg intptr)
+ioctl$dev_device_mapper_7_12(fd fd_device_mapper, cmd const[7], arg ptr64[in, int64])
+ioctl$dev_device_mapper_7_13(fd fd_device_mapper, cmd const[7], arg intptr)
+ioctl$dev_device_mapper_8_14(fd fd_device_mapper, cmd const[8], arg ptr64[in, int64])
+ioctl$dev_device_mapper_8_15(fd fd_device_mapper, cmd const[8], arg intptr)
+ioctl$dev_device_mapper_9_16(fd fd_device_mapper, cmd const[9], arg ptr64[in, int64])
+ioctl$dev_device_mapper_9_17(fd fd_device_mapper, cmd const[9], arg intptr)
+ioctl$dev_device_mapper_10_18(fd fd_device_mapper, cmd const[10], arg ptr64[in, int64])
+ioctl$dev_device_mapper_10_19(fd fd_device_mapper, cmd const[10], arg intptr)
+ioctl$dev_device_mapper_11_20(fd fd_device_mapper, cmd const[11], arg ptr64[in, int64])
+ioctl$dev_device_mapper_11_21(fd fd_device_mapper, cmd const[11], arg intptr)
+ioctl$dev_device_mapper_12_22(fd fd_device_mapper, cmd const[12], arg ptr64[in, int64])
+ioctl$dev_device_mapper_12_23(fd fd_device_mapper, cmd const[12], arg intptr)
+ioctl$dev_device_mapper_13_24(fd fd_device_mapper, cmd const[13], arg ptr64[in, int64])
+ioctl$dev_device_mapper_13_25(fd fd_device_mapper, cmd const[13], arg intptr)
+ioctl$dev_device_mapper_14_26(fd fd_device_mapper, cmd const[14], arg ptr64[in, int64])
+ioctl$dev_device_mapper_14_27(fd fd_device_mapper, cmd const[14], arg intptr)
+ioctl$dev_device_mapper_15_28(fd fd_device_mapper, cmd const[15], arg ptr64[in, int64])
+ioctl$dev_device_mapper_15_29(fd fd_device_mapper, cmd const[15], arg intptr)
+ioctl$dev_device_mapper_3241737488_30(fd fd_device_mapper, cmd const[3241737488], arg ptr64[in, int64])
+ioctl$dev_device_mapper_3241737488_31(fd fd_device_mapper, cmd const[3241737488], arg intptr)
+ioctl$dev_device_mapper_3241737489_32(fd fd_device_mapper, cmd const[3241737489], arg ptr64[in, int64])
+ioctl$dev_device_mapper_3241737489_33(fd fd_device_mapper, cmd const[3241737489], arg intptr)
+ioctl$dev_device_mapper_253_34(fd fd_device_mapper, cmd const[253], arg ptr64[in, int32])
+ioctl$dev_device_mapper_0_35(fd fd_device_mapper, cmd const[0], arg ptr64[in, dm_ioctl])
+ioctl$dev_device_mapper_0_36(fd fd_device_mapper, cmd const[0], arg ptr64[in, int8])
+ioctl$dev_device_mapper_0_37(fd fd_device_mapper, cmd const[0], arg ptr64[in, int32])
+ioctl$dev_device_mapper_1_38(fd fd_device_mapper, cmd const[1], arg ptr64[in, dm_ioctl])
+ioctl$dev_device_mapper_1_39(fd fd_device_mapper, cmd const[1], arg ptr64[in, int8])
+ioctl$dev_device_mapper_2_40(fd fd_device_mapper, cmd const[2], arg ptr64[in, dm_ioctl])
+ioctl$dev_device_mapper_2_41(fd fd_device_mapper, cmd const[2], arg ptr64[in, int8])
+ioctl$dev_device_mapper_13_42(fd fd_device_mapper, cmd const[13], arg ptr64[in, dm_ioctl])
+ioctl$dev_device_mapper_13_43(fd fd_device_mapper, cmd const[13], arg ptr64[in, int8])
+ioctl$dev_device_mapper_3_44(fd fd_device_mapper, cmd const[3], arg ptr64[in, dm_ioctl])
+ioctl$dev_device_mapper_3_45(fd fd_device_mapper, cmd const[3], arg ptr64[in, int8])
+
+dm_ioctl {
+	element_0	array[int32, 3]
+	element_1	int32
+	element_2	int32
+	element_3	int32
+	element_4	int32
+	element_5	int32
+	element_6	int32
+	element_7	int32
+	element_8	int64
+	element_9	array[int8, 128]
+	element_10	array[int8, 129]
+	element_11	array[int8, 7]
+}

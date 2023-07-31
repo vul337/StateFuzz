@@ -1,0 +1,3 @@
+resource fd_kcore[fd]
+syz_open_dev$dev_kcore(dev ptr64[in, string["/dev/kcore"]], id intptr, flags flags[open_flags]) fd_kcore
+close$dev_kcore(fd fd_kcore)

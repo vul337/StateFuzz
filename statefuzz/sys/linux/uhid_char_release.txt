@@ -1,0 +1,2 @@
+syz_open_dev$dev_uhid(dev ptr64[in, string["/dev/uhid"]], id intptr, flags flags[open_flags]) fd_uhid
+close$dev_uhid(fd fd_uhid)

@@ -1,0 +1,3 @@
+resource fd_channel[fd]
+syz_open_dev$dev_channel(dev ptr64[in, string["/dev/channel"]], id intptr, flags flags[open_flags]) fd_channel
+close$dev_channel(fd fd_channel)

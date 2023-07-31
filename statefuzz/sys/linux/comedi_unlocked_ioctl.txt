@@ -1,0 +1,88 @@
+ioctl$dev_comedi_1083466752_0(fd fd_comedi, cmd const[1083466752], arg ptr64[in, comedi_devconfig])
+ioctl$dev_comedi_2149606413_1(fd fd_comedi, cmd const[2149606413], arg ptr64[in, comedi_bufconfig])
+ioctl$dev_comedi_2159043585_2(fd fd_comedi, cmd const[2159043585], arg ptr64[in, comedi_devconfig])
+ioctl$dev_comedi_2152227842_3(fd fd_comedi, cmd const[2152227842], arg ptr64[in, comedi_devconfig])
+ioctl$dev_comedi_2150654979_4(fd fd_comedi, cmd const[2150654979], arg ptr64[in, comedi_chaninfo])
+ioctl$dev_comedi_2148557832_5(fd fd_comedi, cmd const[2148557832], arg ptr64[in, comedi_rangeinfo])
+ioctl$dev_comedi_3224134670_6(fd fd_comedi, cmd const[3224134670], arg ptr64[in, comedi_bufinfo])
+ioctl$dev_comedi_25605_7(fd fd_comedi, cmd const[25605], arg ptr64[in, comedi_devconfig])
+ioctl$dev_comedi_25606_8(fd fd_comedi, cmd const[25606], arg ptr64[in, comedi_devconfig])
+ioctl$dev_comedi_25607_9(fd fd_comedi, cmd const[25607], arg ptr64[in, comedi_devconfig])
+ioctl$dev_comedi_2152752137_10(fd fd_comedi, cmd const[2152752137], arg ptr64[in, comedi_cmd])
+ioctl$dev_comedi_2152752138_11(fd fd_comedi, cmd const[2152752138], arg ptr64[in, comedi_cmd])
+ioctl$dev_comedi_2148557835_12(fd fd_comedi, cmd const[2148557835], arg ptr64[in, comedi_insnlist])
+ioctl$dev_comedi_2148557835_13(fd fd_comedi, cmd const[2148557835], arg ptr64[in, comedi_insn])
+ioctl$dev_comedi_2150130700_14(fd fd_comedi, cmd const[2150130700], arg ptr64[in, comedi_insn])
+ioctl$dev_comedi_25615_15(fd fd_comedi, cmd const[25615], arg ptr64[in, comedi_devconfig])
+ioctl$dev_comedi_25616_16(fd fd_comedi, cmd const[25616], arg ptr64[in, comedi_devconfig])
+ioctl$dev_comedi_25617_17(fd fd_comedi, cmd const[25617], arg ptr64[in, comedi_devconfig])
+
+comedi_insnlist {
+	element_0	int32
+	element_1	ptr64[in, comedi_insn]
+}
+
+comedi_cmd {
+	element_0	int32
+	element_1	int32
+	element_2	int32
+	element_3	int32
+	element_4	int32
+	element_5	int32
+	element_6	int32
+	element_7	int32
+	element_8	int32
+	element_9	int32
+	element_10	int32
+	element_11	int32
+	element_12	ptr64[in, int32]
+	element_13	int32
+	element_14	ptr64[in, int16]
+	element_15	int32
+}
+
+comedi_chaninfo {
+	element_0	int32
+	element_1	ptr64[in, int32]
+	element_2	ptr64[in, int32]
+	element_3	ptr64[in, int32]
+	element_4	array[int32, 4]
+}
+
+comedi_bufconfig {
+	element_0	int32
+	element_1	int32
+	element_2	int32
+	element_3	int32
+	element_4	array[int32, 4]
+}
+
+comedi_insn {
+	element_0	int32
+	element_1	int32
+	element_2	ptr64[in, int32]
+	element_3	int32
+	element_4	int32
+	element_5	array[int32, 3]
+}
+
+comedi_bufinfo {
+	element_0	int32
+	element_1	int32
+	element_2	int32
+	element_3	int32
+	element_4	int32
+	element_5	int32
+	element_6	int32
+	element_7	array[int32, 4]
+}
+
+comedi_devconfig {
+	element_0	array[int8, 20]
+	element_1	array[int32, 32]
+}
+
+comedi_rangeinfo {
+	element_0	int32
+	element_1	ptr64[in, int8]
+}

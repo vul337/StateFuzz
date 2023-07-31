@@ -1,0 +1,3 @@
+resource fd_aer_inject[fd]
+syz_open_dev$dev_aer_inject(dev ptr64[in, string["/dev/aer_inject"]], id intptr, flags flags[open_flags]) fd_aer_inject
+write$dev_aer_inject(fd fd_aer_inject, buf buffer[in], count len[buf])

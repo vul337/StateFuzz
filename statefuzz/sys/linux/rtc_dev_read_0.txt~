@@ -1,0 +1,1 @@
+read$dev_rtc (fd fd_rtc, buf buffer[out], count len[buf])

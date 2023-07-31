@@ -1,0 +1,1 @@
+write$dev_SecurityFlags(fd fd_SecurityFlags, buf buffer[in], count len[buf])

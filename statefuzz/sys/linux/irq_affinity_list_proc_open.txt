@@ -1,0 +1,3 @@
+resource fd_smp_affinity_list[fd]
+syz_open_dev$dev_smp_affinity_list(dev ptr64[in, string["/dev/smp_affinity_list"]], id intptr, flags flags[open_flags]) fd_smp_affinity_list
+close$dev_smp_affinity_list(fd fd_smp_affinity_list)

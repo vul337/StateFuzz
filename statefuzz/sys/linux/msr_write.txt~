@@ -1,0 +1,4 @@
+resource fd_cpu_msr[fd]
+syz_open_dev$dev_cpu_msr(dev ptr64[in, string["/dev/cpu/msr"]], id intptr, flags flags[open_flags]) fd_cpu_msr
+close$dev_cpu_msr(fd fd_cpu_msr)
+write$dev_cpu_msr (fd fd_cpu_msr, buf buffer[in], count len[buf])

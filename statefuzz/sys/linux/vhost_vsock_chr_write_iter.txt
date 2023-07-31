@@ -1,0 +1,1 @@
+write$dev_vhost_vsock(fd fd_vhost_vsock, buf buffer[in], count len[buf])

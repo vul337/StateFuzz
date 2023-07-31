@@ -1,0 +1,3 @@
+resource fd_vhost_vsock[fd]
+syz_open_dev$dev_vhost_vsock(dev ptr64[in, string["/dev/vhost-vsock"]], id intptr, flags flags[open_flags]) fd_vhost_vsock
+close$dev_vhost_vsock(fd fd_vhost_vsock)

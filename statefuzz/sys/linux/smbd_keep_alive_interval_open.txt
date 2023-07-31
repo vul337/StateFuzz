@@ -1,0 +1,3 @@
+resource fd_smbd_keep_alive_interval[fd]
+syz_open_dev$dev_smbd_keep_alive_interval(dev ptr64[in, string["/dev/smbd_keep_alive_interval"]], id intptr, flags flags[open_flags]) fd_smbd_keep_alive_interval
+close$dev_smbd_keep_alive_interval(fd fd_smbd_keep_alive_interval)

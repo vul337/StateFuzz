@@ -1,0 +1,1 @@
+read$dev_snd_timer (fd fd_snd_timer, buf buffer[out], count len[buf])

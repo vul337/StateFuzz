@@ -1,0 +1,3 @@
+syz_open_dev$dev_rfkill(dev ptr64[in, string["/dev/rfkill"]], id intptr, flags flags[open_flags]) fd_rfkill
+close$dev_rfkill(fd fd_rfkill)
+write$dev_rfkill(fd fd_rfkill, buf buffer[in], count len[buf])

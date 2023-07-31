@@ -1,0 +1,4 @@
+ioctl$dev_g_printer0_2147575585_0(fd fd_g_printer0, cmd const[2147575585], arg ptr64[in, int64])
+ioctl$dev_g_printer0_2147575585_1(fd fd_g_printer0, cmd const[2147575585], arg intptr)
+ioctl$dev_g_printer0_3221317410_2(fd fd_g_printer0, cmd const[3221317410], arg ptr64[in, int64])
+ioctl$dev_g_printer0_3221317410_3(fd fd_g_printer0, cmd const[3221317410], arg intptr)

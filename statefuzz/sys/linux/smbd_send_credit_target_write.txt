@@ -1,0 +1,4 @@
+resource fd_smbd_send_credit_target[fd]
+syz_open_dev$dev_smbd_send_credit_target(dev ptr64[in, string["/dev/smbd_send_credit_target"]], id intptr, flags flags[open_flags]) fd_smbd_send_credit_target
+close$dev_smbd_send_credit_target(fd fd_smbd_send_credit_target)
+write$dev_smbd_send_credit_target(fd fd_smbd_send_credit_target, buf buffer[in], count len[buf])

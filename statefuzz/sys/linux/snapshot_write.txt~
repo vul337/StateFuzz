@@ -1,0 +1,1 @@
+write$dev_snapshot (fd fd_snapshot, buf buffer[in], count len[buf])

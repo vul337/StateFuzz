@@ -1,0 +1,1 @@
+write$dev_vhci (fd fd_vhci, buf buffer[in], count len[buf])

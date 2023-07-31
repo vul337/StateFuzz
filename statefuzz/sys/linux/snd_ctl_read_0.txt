@@ -1,0 +1,4 @@
+resource fd_snd_controlC0[fd]
+syz_open_dev$dev_snd_controlC0(dev ptr64[in, string["/dev/snd/controlC0"]], id intptr, flags flags[open_flags]) fd_snd_controlC0
+close$dev_snd_controlC0(fd fd_snd_controlC0)
+read$dev_snd_controlC0(fd fd_snd_controlC0, buf buffer[out], count len[buf])

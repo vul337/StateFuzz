@@ -1,0 +1,1 @@
+read$dev_temperature (fd fd_temperature, buf buffer[out], count len[buf])

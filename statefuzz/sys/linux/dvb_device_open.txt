@@ -1,0 +1,3 @@
+resource fd_DVB[fd]
+syz_open_dev$dev_DVB(dev ptr64[in, string["/dev/DVB"]], id intptr, flags flags[open_flags]) fd_DVB
+close$dev_DVB(fd fd_DVB)

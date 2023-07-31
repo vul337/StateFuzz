@@ -1,0 +1,4 @@
+resource fd_nvme_fabrics[fd]
+syz_open_dev$dev_nvme_fabrics(dev ptr64[in, string["/dev/nvme-fabrics"]], id intptr, flags flags[open_flags]) fd_nvme_fabrics
+close$dev_nvme_fabrics(fd fd_nvme_fabrics)
+write$dev_nvme_fabrics(fd fd_nvme_fabrics, buf buffer[in], count len[buf])

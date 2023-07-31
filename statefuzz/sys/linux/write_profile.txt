@@ -1,0 +1,1 @@
+write$dev_profile(fd fd_profile, buf buffer[in], count len[buf])

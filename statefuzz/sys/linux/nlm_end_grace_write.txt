@@ -1,0 +1,1 @@
+write$dev_nlm_end_grace(fd fd_nlm_end_grace, buf buffer[in], count len[buf])

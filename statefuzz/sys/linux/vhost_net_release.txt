@@ -1,0 +1,3 @@
+resource fd_vhost_net[fd]
+syz_open_dev$dev_vhost_net(dev ptr64[in, string["/dev/vhost-net"]], id intptr, flags flags[open_flags]) fd_vhost_net
+close$dev_vhost_net(fd fd_vhost_net)

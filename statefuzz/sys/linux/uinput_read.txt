@@ -1,0 +1,1 @@
+read$dev_uinput(fd fd_uinput, buf buffer[out], count len[buf])

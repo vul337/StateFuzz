@@ -1,0 +1,1 @@
+write$dev_comedi (fd fd_comedi, buf buffer[in], count len[buf])

@@ -1,0 +1,1 @@
+write$dev_nictool_dev (fd fd_nictool_dev, buf buffer[in], count len[buf])

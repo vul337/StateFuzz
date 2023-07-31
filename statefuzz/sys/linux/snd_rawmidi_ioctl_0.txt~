@@ -1,0 +1,18 @@
+ioctl$dev_admmidi_0_0(fd fd_admmidi, cmd const[0], arg ptr64[in, int64])
+ioctl$dev_admmidi_0_1(fd fd_admmidi, cmd const[0], arg intptr)
+ioctl$dev_admmidi_87_2(fd fd_admmidi, cmd const[87], arg ptr64[in, int64])
+ioctl$dev_admmidi_87_3(fd fd_admmidi, cmd const[87], arg intptr)
+ioctl$dev_admmidi_2147768064_4(fd fd_admmidi, cmd const[2147768064], arg ptr64[in, int64])
+ioctl$dev_admmidi_2147768064_5(fd fd_admmidi, cmd const[2147768064], arg intptr)
+ioctl$dev_admmidi_2165069569_6(fd fd_admmidi, cmd const[2165069569], arg ptr64[in, int64])
+ioctl$dev_admmidi_2165069569_7(fd fd_admmidi, cmd const[2165069569], arg intptr)
+ioctl$dev_admmidi_3224393488_8(fd fd_admmidi, cmd const[3224393488], arg ptr64[in, snd_rawmidi_params])
+ioctl$dev_admmidi_3223607072_9(fd fd_admmidi, cmd const[3223607072], arg ptr64[in, snd_rawmidi_status32])
+ioctl$dev_admmidi_3224917792_10(fd fd_admmidi, cmd const[3224917792], arg ptr64[in, snd_rawmidi_status64])
+ioctl$dev_admmidi_1074026288_11(fd fd_admmidi, cmd const[1074026288], arg ptr64[in, int64])
+ioctl$dev_admmidi_1074026288_12(fd fd_admmidi, cmd const[1074026288], arg intptr)
+ioctl$dev_admmidi_1074026289_13(fd fd_admmidi, cmd const[1074026289], arg ptr64[in, int64])
+ioctl$dev_admmidi_1074026289_14(fd fd_admmidi, cmd const[1074026289], arg intptr)
+
+
+

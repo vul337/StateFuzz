@@ -1,0 +1,77 @@
+ioctl$dev_mtd_2147765511_0(fd fd_mtd, cmd const[2147765511], arg ptr64[in, int64])
+ioctl$dev_mtd_2147765511_1(fd fd_mtd, cmd const[2147765511], arg intptr)
+ioctl$dev_mtd_3222293768_2(fd fd_mtd, cmd const[3222293768], arg ptr64[in, int64])
+ioctl$dev_mtd_3222293768_3(fd fd_mtd, cmd const[3222293768], arg intptr)
+ioctl$dev_mtd_2149600513_4(fd fd_mtd, cmd const[2149600513], arg ptr64[in, int64])
+ioctl$dev_mtd_2149600513_5(fd fd_mtd, cmd const[2149600513], arg intptr)
+ioctl$dev_mtd_1074285826_6(fd fd_mtd, cmd const[1074285826], arg ptr64[in, int64])
+ioctl$dev_mtd_1074285826_7(fd fd_mtd, cmd const[1074285826], arg intptr)
+ioctl$dev_mtd_1074810132_8(fd fd_mtd, cmd const[1074810132], arg ptr64[in, erase_info_user64])
+ioctl$dev_mtd_1074810132_9(fd fd_mtd, cmd const[1074810132], arg ptr64[in, erase_info_user])
+ioctl$dev_mtd_3222293763_10(fd fd_mtd, cmd const[3222293763], arg ptr64[in, mtd_oob_buf])
+ioctl$dev_mtd_3222293764_11(fd fd_mtd, cmd const[3222293764], arg ptr64[in, mtd_oob_buf])
+ioctl$dev_mtd_3222818069_12(fd fd_mtd, cmd const[3222818069], arg ptr64[in, mtd_oob_buf64])
+ioctl$dev_mtd_3222818070_13(fd fd_mtd, cmd const[3222818070], arg ptr64[in, mtd_oob_buf64])
+ioctl$dev_mtd_3224390936_14(fd fd_mtd, cmd const[3224390936], arg ptr64[in, mtd_write_req])
+ioctl$dev_mtd_1074285829_15(fd fd_mtd, cmd const[1074285829], arg ptr64[in, erase_info_user])
+ioctl$dev_mtd_1074285830_16(fd fd_mtd, cmd const[1074285830], arg ptr64[in, erase_info_user])
+ioctl$dev_mtd_2148027671_17(fd fd_mtd, cmd const[2148027671], arg ptr64[in, erase_info_user])
+ioctl$dev_mtd_2160610570_18(fd fd_mtd, cmd const[2160610570], arg ptr64[in, int64])
+ioctl$dev_mtd_2160610570_19(fd fd_mtd, cmd const[2160610570], arg intptr)
+ioctl$dev_mtd_1074285835_20(fd fd_mtd, cmd const[1074285835], arg ptr64[in, int64])
+ioctl$dev_mtd_1074285836_21(fd fd_mtd, cmd const[1074285836], arg ptr64[in, int64])
+ioctl$dev_mtd_2147765517_22(fd fd_mtd, cmd const[2147765517], arg ptr64[in, int32])
+ioctl$dev_mtd_1074023694_23(fd fd_mtd, cmd const[1074023694], arg ptr64[in, int64])
+ioctl$dev_mtd_1074023694_24(fd fd_mtd, cmd const[1074023694], arg intptr)
+ioctl$dev_mtd_1074547983_25(fd fd_mtd, cmd const[1074547983], arg ptr64[in, int64])
+ioctl$dev_mtd_1074547983_26(fd fd_mtd, cmd const[1074547983], arg intptr)
+ioctl$dev_mtd_2148289808_27(fd fd_mtd, cmd const[2148289808], arg ptr64[in, otp_info])
+ioctl$dev_mtd_1074547993_28(fd fd_mtd, cmd const[1074547993], arg ptr64[in, otp_info])
+ioctl$dev_mtd_2168999185_29(fd fd_mtd, cmd const[2168999185], arg ptr64[in, int64])
+ioctl$dev_mtd_2168999185_30(fd fd_mtd, cmd const[2168999185], arg intptr)
+ioctl$dev_mtd_2148551954_31(fd fd_mtd, cmd const[2148551954], arg ptr64[in, int64])
+ioctl$dev_mtd_2148551954_32(fd fd_mtd, cmd const[2148551954], arg intptr)
+ioctl$dev_mtd_19731_33(fd fd_mtd, cmd const[19731], arg ptr64[in, int64])
+ioctl$dev_mtd_19731_34(fd fd_mtd, cmd const[19731], arg intptr)
+ioctl$dev_mtd_4713_35(fd fd_mtd, cmd const[4713], arg ptr64[in, blkpg_ioctl_arg])
+ioctl$dev_mtd_4703_36(fd fd_mtd, cmd const[4703], arg ptr64[in, int64])
+ioctl$dev_mtd_4703_37(fd fd_mtd, cmd const[4703], arg intptr)
+
+erase_info_user {
+	element_0	int32
+	element_1	int32
+}
+
+mtd_write_req {
+	element_0	int64
+	element_1	int64
+	element_2	int64
+	element_3	int64
+	element_4	int64
+	element_5	int8
+	element_6	array[int8, 7]
+}
+
+erase_info_user64 {
+	element_0	int64
+	element_1	int64
+}
+
+mtd_oob_buf64 {
+	element_0	int64
+	element_1	int32
+	element_2	int32
+	element_3	int64
+}
+
+mtd_oob_buf {
+	element_0	int32
+	element_1	int32
+	element_2	ptr64[in, int8]
+}
+
+otp_info {
+	element_0	int32
+	element_1	int32
+	element_2	int32
+}

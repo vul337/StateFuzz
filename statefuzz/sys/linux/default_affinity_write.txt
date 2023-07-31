@@ -1,0 +1,1 @@
+write$dev_irq_default_smp_affinity(fd fd_irq_default_smp_affinity, buf buffer[in], count len[buf])

@@ -1,0 +1,1 @@
+read$dev_vhost_vsock(fd fd_vhost_vsock, buf buffer[out], count len[buf])

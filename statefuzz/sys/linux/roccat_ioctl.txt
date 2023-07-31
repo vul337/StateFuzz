@@ -1,0 +1,2 @@
+ioctl$dev_roccat_2147764465_0(fd fd_roccat, cmd const[2147764465], arg ptr64[in, int64])
+ioctl$dev_roccat_2147764465_1(fd fd_roccat, cmd const[2147764465], arg intptr)

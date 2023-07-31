@@ -1,0 +1,3 @@
+resource fd_irq_prof_cpu_mask[fd]
+syz_open_dev$dev_irq_prof_cpu_mask(dev ptr64[in, string["/dev/irq/prof_cpu_mask"]], id intptr, flags flags[open_flags]) fd_irq_prof_cpu_mask
+close$dev_irq_prof_cpu_mask(fd fd_irq_prof_cpu_mask)

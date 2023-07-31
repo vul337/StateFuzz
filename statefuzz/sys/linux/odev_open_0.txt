@@ -1,0 +1,3 @@
+resource fd_sequencer2[fd]
+syz_open_dev$dev_sequencer2(dev ptr64[in, string["/dev/sequencer2"]], id intptr, flags flags[open_flags]) fd_sequencer2
+close$dev_sequencer2(fd fd_sequencer2)

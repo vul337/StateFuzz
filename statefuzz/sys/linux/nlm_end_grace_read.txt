@@ -1,0 +1,4 @@
+resource fd_nlm_end_grace[fd]
+syz_open_dev$dev_nlm_end_grace(dev ptr64[in, string["/dev/nlm_end_grace"]], id intptr, flags flags[open_flags]) fd_nlm_end_grace
+close$dev_nlm_end_grace(fd fd_nlm_end_grace)
+read$dev_nlm_end_grace(fd fd_nlm_end_grace, buf buffer[out], count len[buf])

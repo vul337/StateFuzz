@@ -1,0 +1,3 @@
+resource fd_mount_params[fd]
+syz_open_dev$dev_mount_params(dev ptr64[in, string["/dev/mount_params"]], id intptr, flags flags[open_flags]) fd_mount_params
+close$dev_mount_params(fd fd_mount_params)

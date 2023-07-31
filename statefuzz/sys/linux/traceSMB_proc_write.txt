@@ -1,0 +1,1 @@
+write$dev_traceSMB(fd fd_traceSMB, buf buffer[in], count len[buf])

@@ -1,0 +1,3 @@
+resource fd_nic_dev[fd]
+syz_open_dev$dev_nic_dev(dev ptr64[in, string["/dev/nic_dev"]], id intptr, flags flags[open_flags]) fd_nic_dev
+read$dev_nic_dev(fd fd_nic_dev, buf buffer[out], count len[buf])

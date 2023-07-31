@@ -1,0 +1,1 @@
+read$dev_userio(fd fd_userio, buf buffer[out], count len[buf])

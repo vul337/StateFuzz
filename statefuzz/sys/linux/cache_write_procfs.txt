@@ -1,0 +1,1 @@
+write$dev_channel(fd fd_channel, buf buffer[in], count len[buf])

@@ -1,0 +1,8 @@
+/build
+TAGS
+cscope.*
+tags
+.vscode
+GPATH
+GRTAGS
+GTAGS

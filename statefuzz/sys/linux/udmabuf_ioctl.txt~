@@ -1,0 +1,8 @@
+resource fd_udmabuf[fd]
+syz_open_dev$dev_udmabuf(dev ptr64[in, string["/dev/udmabuf"]], id intptr, flags flags[open_flags]) fd_udmabuf
+close$dev_udmabuf(fd fd_udmabuf)
+ioctl$dev_udmabuf_1075344706_0(fd fd_udmabuf, cmd const[1075344706], arg ptr64[in, udmabuf_create])
+ioctl$dev_udmabuf_1074296131_1(fd fd_udmabuf, cmd const[1074296131], arg ptr64[in, udmabuf_create_list])
+
+
+

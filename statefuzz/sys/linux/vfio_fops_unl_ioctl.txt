@@ -1,0 +1,6 @@
+ioctl$dev_vfio_15204_0(fd fd_vfio, cmd const[15204], arg ptr64[in, int64])
+ioctl$dev_vfio_15204_1(fd fd_vfio, cmd const[15204], arg intptr)
+ioctl$dev_vfio_15205_2(fd fd_vfio, cmd const[15205], arg ptr64[in, int64])
+ioctl$dev_vfio_15205_3(fd fd_vfio, cmd const[15205], arg intptr)
+ioctl$dev_vfio_15206_4(fd fd_vfio, cmd const[15206], arg ptr64[in, int64])
+ioctl$dev_vfio_15206_5(fd fd_vfio, cmd const[15206], arg intptr)

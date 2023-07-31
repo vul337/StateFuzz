@@ -1,0 +1,1 @@
+write$dev_flush (fd fd_flush, buf buffer[in], count len[buf])

@@ -1,0 +1,1 @@
+read$dev_tty (fd fd_tty, buf buffer[out], count len[buf])

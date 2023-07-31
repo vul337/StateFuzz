@@ -1,0 +1,1 @@
+read$dev_g_printer0 (fd fd_g_printer0, buf buffer[out], count len[buf])

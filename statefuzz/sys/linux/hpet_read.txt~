@@ -1,0 +1,1 @@
+read$dev_hpet (fd fd_hpet, buf buffer[out], count len[buf])

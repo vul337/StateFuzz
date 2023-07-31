@@ -1,0 +1,4 @@
+resource fd_psaux[fd]
+syz_open_dev$dev_psaux(dev ptr64[in, string["/dev/psaux"]], id intptr, flags flags[open_flags]) fd_psaux
+close$dev_psaux(fd fd_psaux)
+write$dev_psaux(fd fd_psaux, buf buffer[in], count len[buf])

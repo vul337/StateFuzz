@@ -1,0 +1,4 @@
+resource fd_cpu_dma_latency[fd]
+syz_open_dev$dev_cpu_dma_latency(dev ptr64[in, string["/dev/cpu_dma_latency"]], id intptr, flags flags[open_flags]) fd_cpu_dma_latency
+close$dev_cpu_dma_latency(fd fd_cpu_dma_latency)
+read$dev_cpu_dma_latency (fd fd_cpu_dma_latency, buf buffer[out], count len[buf])

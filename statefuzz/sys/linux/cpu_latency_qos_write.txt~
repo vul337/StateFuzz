@@ -1,0 +1,1 @@
+write$dev_cpu_dma_latency (fd fd_cpu_dma_latency, buf buffer[in], count len[buf])

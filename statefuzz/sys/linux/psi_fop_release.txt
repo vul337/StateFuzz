@@ -1,0 +1,3 @@
+resource fd_pressure_cpu[fd]
+syz_open_dev$dev_pressure_cpu(dev ptr64[in, string["/dev/pressure/cpu"]], id intptr, flags flags[open_flags]) fd_pressure_cpu
+close$dev_pressure_cpu(fd fd_pressure_cpu)

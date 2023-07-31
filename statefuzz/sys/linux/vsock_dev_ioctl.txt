@@ -1,0 +1,5 @@
+resource fd_vsock[fd]
+syz_open_dev$dev_vsock(dev ptr64[in, string["/dev/vsock"]], id intptr, flags flags[open_flags]) fd_vsock
+close$dev_vsock(fd fd_vsock)
+ioctl$dev_vsock_1977_0(fd fd_vsock, cmd const[1977], arg ptr64[in, int64])
+ioctl$dev_vsock_1977_1(fd fd_vsock, cmd const[1977], arg intptr)

@@ -1,0 +1,4 @@
+resource fd_cifsFYI[fd]
+syz_open_dev$dev_cifsFYI(dev ptr64[in, string["/dev/cifsFYI"]], id intptr, flags flags[open_flags]) fd_cifsFYI
+close$dev_cifsFYI(fd fd_cifsFYI)
+write$dev_cifsFYI(fd fd_cifsFYI, buf buffer[in], count len[buf])

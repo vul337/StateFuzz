@@ -1,0 +1,1 @@
+write$dev_tty (fd fd_tty, buf buffer[in], count len[buf])

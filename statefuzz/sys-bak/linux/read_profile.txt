@@ -1,0 +1,1 @@
+read$dev_profile (fd fd_profile, buf buffer[out], count len[buf])

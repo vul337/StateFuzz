@@ -1,0 +1,4 @@
+resource fd_roccat[fd]
+syz_open_dev$dev_roccat(dev ptr64[in, string["/dev/roccat"]], id intptr, flags flags[open_flags]) fd_roccat
+ioctl$dev_roccat_2147764465_0(fd fd_roccat, cmd const[2147764465], arg ptr64[in, int64])
+ioctl$dev_roccat_2147764465_1(fd fd_roccat, cmd const[2147764465], arg intptr)

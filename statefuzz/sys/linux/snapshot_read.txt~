@@ -1,0 +1,1 @@
+read$dev_snapshot (fd fd_snapshot, buf buffer[out], count len[buf])

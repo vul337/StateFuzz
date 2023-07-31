@@ -1,0 +1,9 @@
+resource fd_loop_control[fd]
+syz_open_dev$dev_loop_control(dev ptr64[in, string["/dev/loop-control"]], id intptr, flags flags[open_flags]) fd_loop_control
+close$dev_loop_control(fd fd_loop_control)
+ioctl$dev_loop_control_19584_0(fd fd_loop_control, cmd const[19584], arg ptr64[in, int64])
+ioctl$dev_loop_control_19584_1(fd fd_loop_control, cmd const[19584], arg intptr)
+ioctl$dev_loop_control_19585_2(fd fd_loop_control, cmd const[19585], arg ptr64[in, int64])
+ioctl$dev_loop_control_19585_3(fd fd_loop_control, cmd const[19585], arg intptr)
+ioctl$dev_loop_control_19586_4(fd fd_loop_control, cmd const[19586], arg ptr64[in, int64])
+ioctl$dev_loop_control_19586_5(fd fd_loop_control, cmd const[19586], arg intptr)

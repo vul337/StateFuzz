@@ -1,0 +1,1 @@
+write$dev_input_event1 (fd fd_input_event1, buf buffer[in], count len[buf])

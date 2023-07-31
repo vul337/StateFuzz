@@ -1,0 +1,1 @@
+write$dev_Stats(fd fd_Stats, buf buffer[in], count len[buf])

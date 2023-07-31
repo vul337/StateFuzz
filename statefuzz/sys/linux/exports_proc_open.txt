@@ -1,0 +1,3 @@
+resource fd_exports[fd]
+syz_open_dev$dev_exports(dev ptr64[in, string["/dev/exports"]], id intptr, flags flags[open_flags]) fd_exports
+close$dev_exports(fd fd_exports)
